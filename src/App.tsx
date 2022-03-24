@@ -5,7 +5,7 @@ const boardColor = "lightgrey";
 const whiteGrid = "#fff";
 const blackGrid = "lightgrey";
 const pieceColor = '#2b2b2b';
-const gridSize = 40;
+const gridSize = 50;
 const fontSize = 40;
 const WHITE_PIECES = {
   pawn: '♙',
