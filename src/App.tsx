@@ -1,11 +1,33 @@
 import React from 'react';
 import './App.css';
 
-
 const boardColor = "lightgrey";
 const whiteGrid = "#fff";
 const blackGrid = "lightgrey";
 const pieceColor = '#2b2b2b';
+const gridSize = 40;
+const fontSize = 40;
+const WHITE_PIECES = {
+  pawn: '♙',
+  rock: '♖',
+  knight: '♘',
+  bishop: '♗',
+  queen: '♕',
+  king: '♔',
+}
+
+const BLACK_PIECES = {
+  pawn: '♟',
+  rock: '♜',
+  knight: '♞',
+  bishop: '♝',
+  queen: '♛',
+  king: '♚',
+}
+
+const EMPTY_PIECES = {
+  blank: ''
+}
 
 const grid = [
   [0, 1, 0, 1, 0, 1, 0, 1],
@@ -17,22 +39,19 @@ const grid = [
   [0, 1, 0, 1, 0, 1, 0, 1],
   [1, 0, 1, 0, 1, 0, 1, 0]
 ];
-const gridSize = 40;
-const fontSize = 20;
-const pieces = {
-  pawnW: '♙',
-  rockW: '♖',
-  knightW: '♘',
-  bishopW: '♗',
-  queenW: '♕',
-  kingW: '♔',
-  pawnB: '♟',
-  rockB: '♜',
-  knightB: '♞',
-  bishopB: '♝',
-  queenB: '♛',
-  kingB: '♚',
-}
+
+
+const initMap = [
+  [BLACK_PIECES.rock, BLACK_PIECES.knight, BLACK_PIECES.bishop, BLACK_PIECES.queen, BLACK_PIECES.king, BLACK_PIECES.bishop, BLACK_PIECES.knight, BLACK_PIECES.rock],
+  [BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn],
+  [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
+  [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
+  [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
+  [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
+  [WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn],
+  [WHITE_PIECES.rock, WHITE_PIECES.knight, WHITE_PIECES.bishop, WHITE_PIECES.queen, WHITE_PIECES.king, WHITE_PIECES.bishop, WHITE_PIECES.knight, WHITE_PIECES.rock],
+];
+
 function App() {
   return (
     <div className="App">
@@ -60,7 +79,7 @@ function App() {
                     font-size={fontSize}
                     stroke={pieceColor}
                   >
-                    {pieces.pawnB}
+                    {initMap[colIndex][rowIndex]}
                   </text>
                 </g>
 
