@@ -1,0 +1,9 @@
+name = "chess"
+type = "webpack"
+route = ''
+zone_id = ''
+usage_model = ''
+compatibility_flags = []
+workers_dev = true
+site = {bucket = "./build",entry-point = "workers-site"}
+compatibility_date = "2022-03-24"
