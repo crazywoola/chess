@@ -2,9 +2,10 @@ import React from 'react';
 import './App.css';
 
 
-const boardColor = "#ccc";
+const boardColor = "lightgrey";
 const whiteGrid = "#fff";
-const blackGrid = "#ccc";
+const blackGrid = "lightgrey";
+const pieceColor = '#2b2b2b';
 
 const grid = [
   [0, 1, 0, 1, 0, 1, 0, 1],
@@ -16,8 +17,22 @@ const grid = [
   [0, 1, 0, 1, 0, 1, 0, 1],
   [1, 0, 1, 0, 1, 0, 1, 0]
 ];
-const gridSize = 20;
-const fontSize = 12;
+const gridSize = 40;
+const fontSize = 20;
+const pieces = {
+  pawnW: '♙',
+  rockW: '♖',
+  knightW: '♘',
+  bishopW: '♗',
+  queenW: '♕',
+  kingW: '♔',
+  pawnB: '♟',
+  rockB: '♜',
+  knightB: '♞',
+  bishopB: '♝',
+  queenB: '♛',
+  kingB: '♚',
+}
 function App() {
   return (
     <div className="App">
@@ -38,18 +53,19 @@ function App() {
                     style={{ fill: col === 1 ? blackGrid : whiteGrid }}
                   />
                   <text
-                    x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                    font-family="Verdana"
+                    x={gridSize / 2 + gridSize * rowIndex}
+                    y={gridSize / 2 + gridSize * colIndex}
+                    dominant-baseline="middle"
+                    text-anchor="middle"
                     font-size={fontSize}
-                    fill="black"
-                  >A</text>
+                    stroke={pieceColor}
+                  >
+                    {pieces.pawnB}
+                  </text>
                 </g>
 
               })
             })}
-
-            {/* <rect x="0" width={gridSize} height={gridSize} style={{ fill: whiteGrid }} />
-            <rect x="20" width={gridSize} height={gridSize} style={{ fill: blackGrid }} /> */}
           </svg>
         </div>
       </div>
