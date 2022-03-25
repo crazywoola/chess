@@ -19,7 +19,7 @@ interface ThemeContextProps {
 export const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
 
 const ThemeContenxtProvider: FC = ({ children }) => {
-    const [theme, setTheme] = useState<ThemeProps>(woodenTheme);
+    const [theme, setTheme] = useState<ThemeProps>(defaultTheme);
     return <ThemeContext.Provider
         value={{
             theme,

@@ -5,6 +5,7 @@ import Board from 'src/components/board';
 import ThemeContenxtProvider from 'src/context/theme';
 import BoardContextProvider from 'src/context/board';
 import ThemeSelect from 'src/components/theme-select';
+import ActionSelect from 'src/components/action-select';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <div className='container'>
                         <Board />
                         <ThemeSelect />
+                        <ActionSelect />
                     </div>
                     <div className='container'>
                         <SvgBoard />
