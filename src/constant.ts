@@ -1,4 +1,4 @@
-export const boardColor = "lightgrey";
+export const boarderColor = "lightgrey";
 export const whiteGrid = "#fff";
 export const blackGrid = "lightgrey";
 export const pieceColor = '#2b2b2b';

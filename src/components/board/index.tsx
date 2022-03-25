@@ -1,33 +1,49 @@
 import React from 'react';
 import {
-    // blackGrid,
-    boardColor,
-    // fontSize,
+    blackGrid,
+    boarderColor,
+    fontSize,
     grid,
     gridSize,
-    // initMap,
+    initMap,
     pieceColor,
-    // whiteGrid
+    whiteGrid
 } from 'src/constant';
 import './style.css';
-const Cell = () => {
+
+interface CellProps {
+    col: number,
+    rowIndex: number,
+    colIndex: number,
+}
+const Cell = ({
+    col,
+    colIndex,
+    rowIndex,
+}: CellProps) => {
     return <span className='cell' style={{
         width: gridSize,
         height: gridSize,
         color: pieceColor,
+        backgroundColor: col === 1 ? blackGrid : whiteGrid,
+        fontSize: fontSize,
     }}>
-        A
+        {initMap[rowIndex][colIndex]}
     </span>
 };
 const Board = () => {
     return <div className='board' style={{
         width: 8 * gridSize,
         height: 8 * gridSize,
-        border: `1px solid ${boardColor}`,
+        border: `1px solid ${boarderColor}`,
     }}>
         {grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
-                return <Cell />
+                return <Cell
+                    col={col}
+                    rowIndex={rowIndex}
+                    colIndex={colIndex}
+                />
             })
         })}
     </div>
