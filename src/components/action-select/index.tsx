@@ -3,9 +3,9 @@ import './style.scss';
 
 const ActionSelect = () => {
     return <div className='action-select'>
-        <h3>Select Action</h3>
+        <h4>Select Action</h4>
         <div className={'actions'}>
-            <button >Reset Chessboard</button>
+            <button className='btn-small'>Reset Chessboard</button>
         </div>
     </div>
 };

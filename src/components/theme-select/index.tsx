@@ -6,10 +6,10 @@ const ThemeSelect = () => {
     const ctx = useContext(ThemeContext);
     const { selectTheme } = ctx;
     return <div className='theme-select'>
-        <h3>Select Theme</h3>
+        <h4>Select Theme</h4>
         <div className={'actions'}>
-            <button onClick={()=> selectTheme('default')}>Default Theme</button>
-            <button className='gap' onClick={()=> selectTheme('wooden')}>Wooden Theme</button>
+            <button className='btn-small' onClick={()=> selectTheme('default')}>Default Theme</button>
+            <button className='btn-small' onClick={()=> selectTheme('wooden')}>Wooden Theme</button>
         </div>
     </div>
 };

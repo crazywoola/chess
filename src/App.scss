@@ -1,24 +1,4 @@
-.app {
-    background-color: #fafafa;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: row;
-    padding-top: 100px;
-}
-.container {
-    display: flex;
-    align-items: center;
-    min-height: 100%;
-    width: 100%;
-    flex-direction: column;
-}
-
-button {
-    width: auto;
-    height: 40px;
-    background: #ea4c89;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    text-align: center;
+@import 'papercss';
+*, :after, :before {
+    box-sizing: unset;
 }
