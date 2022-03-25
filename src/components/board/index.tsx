@@ -1,13 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'src/context/theme';
 import {
-    blackGrid,
-    borderColor,
-    fontSize,
     grid,
-    gridSize,
     initMap,
-    pieceColor,
-    whiteGrid
 } from 'src/constant';
 import './style.css';
 
@@ -21,6 +16,7 @@ const Cell = ({
     colIndex,
     rowIndex,
 }: CellProps) => {
+    const { theme: { gridSize, pieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     return <span className='cell' style={{
         width: gridSize,
         height: gridSize,
@@ -32,6 +28,7 @@ const Cell = ({
     </span>
 };
 const Board = () => {
+    const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
     return <div className='board' style={{
         width: 8 * gridSize,
         height: 8 * gridSize,

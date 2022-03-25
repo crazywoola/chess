@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'src/context/theme';
 import {
-    blackGrid,
-    borderColor,
-    fontSize,
     grid,
-    gridSize,
     initMap,
-    pieceColor,
-    whiteGrid
 } from 'src/constant';
 const SvgBoard = () => {
+    const {
+        theme: {
+            gridSize,
+            borderColor,
+            blackGrid,
+            whiteGrid,
+            fontSize,
+            pieceColor
+        } 
+    } = useContext(ThemeContext);
     return <div className='svg-board'>
         <svg width={8 * gridSize} height={8 * gridSize} stroke={borderColor}>
             {grid.map((row, rowIndex) => {
