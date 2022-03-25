@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'src/context/theme';
+import { BoardContext } from 'src/context/board';
 import {
     grid,
-    initMap,
 } from 'src/constant';
 import './style.scss';
 
@@ -17,6 +17,7 @@ const Cell = ({
     rowIndex,
 }: CellProps) => {
     const { theme: { gridSize, blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
+    const { chessboard } = useContext(BoardContext);
     return <span className='cell' style={{
         width: gridSize,
         height: gridSize,
@@ -24,7 +25,7 @@ const Cell = ({
         backgroundColor: col === 1 ? blackGrid : whiteGrid,
         fontSize: fontSize,
     }}>
-        {initMap[rowIndex][colIndex]}
+        {chessboard[rowIndex][colIndex]}
     </span>
 };
 const Board = () => {

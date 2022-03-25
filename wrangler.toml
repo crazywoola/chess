@@ -7,3 +7,4 @@ compatibility_flags = []
 workers_dev = true
 site = {bucket = "./build",entry-point = "workers-site"}
 compatibility_date = "2022-03-24"
+account_id='5c051b2a546e3091af9e1083836ef04c'

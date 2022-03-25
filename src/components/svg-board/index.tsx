@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { ThemeContext } from 'src/context/theme';
 import {
     grid,
-    initMap,
 } from 'src/constant';
+import { BoardContext } from 'src/context/board';
 const SvgBoard = () => {
     const {
         theme: {
@@ -15,6 +15,7 @@ const SvgBoard = () => {
             blackPieceColor,
         } 
     } = useContext(ThemeContext);
+    const { chessboard } = useContext(BoardContext);
     return <div className='svg-board'>
         <svg width={8 * gridSize} height={8 * gridSize} stroke={borderColor}>
             {grid.map((row, rowIndex) => {
@@ -40,7 +41,7 @@ const SvgBoard = () => {
                             stroke={blackPieceColor}
                             opacity={0.8}
                         >
-                            {initMap[rowIndex][colIndex]}
+                            {chessboard[rowIndex][colIndex]}
                         </text>
                     </g>
 
