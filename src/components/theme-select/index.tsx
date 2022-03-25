@@ -9,7 +9,7 @@ const ThemeSelect = () => {
         <h4>Select Theme</h4>
         <div className={'actions'}>
             <button className='btn-small' onClick={()=> selectTheme('default')}>Default Theme</button>
-            <button className='btn-small' onClick={()=> selectTheme('wooden')}>Wooden Theme</button>
+            <button className='btn-small gap' onClick={()=> selectTheme('wooden')}>Wooden Theme</button>
         </div>
     </div>
 };

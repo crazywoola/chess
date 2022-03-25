@@ -4,37 +4,30 @@ import Board from 'src/components/board';
 import ThemeContenxtProvider from 'src/context/theme';
 import BoardContextProvider from 'src/context/board';
 import ThemeSelect from 'src/components/theme-select';
-import ActionSelect from 'src/components/action-select';
+// import ActionSelect from 'src/components/action-select';
 import ChessManual from 'src/components/chess-manual';
 
 function App() {
     return (
         <ThemeContenxtProvider>
             <BoardContextProvider>
-                <div className="app">
-                    <div className="row">
-                        <div className="sm-12 md-12 lg-6 col">
-                            <div className='paper container-md'>
-                                <div className='row'>
-                                    <div className="col col-3">
-                                        <ThemeSelect />
-                                        <ActionSelect />
-                                    </div>
-                                    <div className="col col-6">
-                                        <Board />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="sm-12 md-12 col">
-                            <div className='paper container-md'>
-                                <ChessManual />
+                <div className="app col">
+                    <div className="paper container container-md">
+                        <div className="row flex-spaces">
+                            <article className="article col">
+                                <h3 className=''>Simple Chess Board</h3>
+                                <p className='article-meta'>Created By Banana</p>
+                                <ThemeSelect />
+                            </article>
+                            <div className="col">
+                                <Board />
                             </div>
                         </div>
                     </div>
-
+                    <div className="paper container container-md">
+                        <ChessManual />
+                    </div>
                 </div>
-
             </BoardContextProvider>
         </ThemeContenxtProvider>
     );
