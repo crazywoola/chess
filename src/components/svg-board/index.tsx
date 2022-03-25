@@ -22,6 +22,7 @@ const SvgBoard = () => {
                     return <g
                         width={gridSize}
                         height={gridSize}
+                        key={`${rowIndex}-${colIndex}`}
                     >
                         <rect
                             x={colIndex * gridSize}
@@ -33,9 +34,9 @@ const SvgBoard = () => {
                         <text
                             x={gridSize / 2 + gridSize * colIndex}
                             y={gridSize / 2 + gridSize * rowIndex}
-                            dominant-baseline="middle"
-                            text-anchor="middle"
-                            font-size={fontSize}
+                            dominantBaseline="middle"
+                            textAnchor="middle"
+                            fontSize={fontSize}
                             stroke={blackPieceColor}
                             opacity={0.8}
                         >

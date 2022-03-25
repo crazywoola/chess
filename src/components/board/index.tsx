@@ -4,7 +4,7 @@ import {
     grid,
     initMap,
 } from 'src/constant';
-import './style.css';
+import './style.scss';
 
 interface CellProps {
     col: number,
@@ -37,6 +37,7 @@ const Board = () => {
         {grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
                 return <Cell
+                    key={`${rowIndex}-${colIndex}`}
                     col={col}
                     rowIndex={rowIndex}
                     colIndex={colIndex}

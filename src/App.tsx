@@ -1,5 +1,5 @@
 import React from 'react';
-import 'src/App.css';
+import 'src/App.scss';
 import SvgBoard from 'src/components/svg-board';
 import Board from 'src/components/board';
 import ThemeContenxtProvider from 'src/context/theme';
