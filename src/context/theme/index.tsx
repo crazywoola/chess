@@ -1,41 +1,37 @@
 import React, { FC, createContext, useState } from 'react';
 import {
-    borderColor,
-    whiteGrid,
-    blackGrid,
-    pieceColor,
-    gridSize,
-    fontSize,
+    defaultTheme,
+    woodenTheme
 } from 'src/constant';
-
 interface ThemeProps {
     borderColor: string;
     whiteGrid: string;
     blackGrid: string;
-    pieceColor: string;
+    whitePieceColor: string;
+    blackPieceColor: string;
     gridSize: number;
     fontSize: number;
 }
 interface ThemeContextProps {
     theme: ThemeProps;
-    selectTheme: () => void;
+    selectTheme: (t: string) => void;
 }
 export const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
 
 const ThemeContenxtProvider: FC = ({ children }) => {
-    const [theme] = useState<ThemeProps>({
-        borderColor,
-        whiteGrid,
-        blackGrid,
-        pieceColor,
-        gridSize,
-        fontSize,
-    });
+    const [theme, setTheme] = useState<ThemeProps>(woodenTheme);
     return <ThemeContext.Provider
         value={{
             theme,
-            selectTheme: () => {
-                console.log('select theme');
+            selectTheme: (t: string) => {
+                switch (t) {
+                    case 'wooden':
+                        setTheme(woodenTheme);
+                        break;
+                    default:
+                        setTheme(defaultTheme);
+                        break;
+                }
             },
         }}
     >

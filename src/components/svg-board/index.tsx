@@ -12,7 +12,7 @@ const SvgBoard = () => {
             blackGrid,
             whiteGrid,
             fontSize,
-            pieceColor
+            blackPieceColor,
         } 
     } = useContext(ThemeContext);
     return <div className='svg-board'>
@@ -36,7 +36,7 @@ const SvgBoard = () => {
                             dominant-baseline="middle"
                             text-anchor="middle"
                             font-size={fontSize}
-                            stroke={pieceColor}
+                            stroke={blackPieceColor}
                             opacity={0.8}
                         >
                             {initMap[rowIndex][colIndex]}

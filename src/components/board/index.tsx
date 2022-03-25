@@ -16,11 +16,11 @@ const Cell = ({
     colIndex,
     rowIndex,
 }: CellProps) => {
-    const { theme: { gridSize, pieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
+    const { theme: { gridSize, blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     return <span className='cell' style={{
         width: gridSize,
         height: gridSize,
-        color: pieceColor,
+        color: blackPieceColor,
         backgroundColor: col === 1 ? blackGrid : whiteGrid,
         fontSize: fontSize,
     }}>

@@ -1,10 +1,23 @@
 // default theme
-export const borderColor = "lightgrey";
-export const whiteGrid = "#fff";
-export const blackGrid = "lightgrey";
-export const pieceColor = '#2b2b2b';
-export const gridSize = 50;
-export const fontSize = 40;
+export const defaultTheme = {
+    borderColor: 'lightgrey',
+    whiteGrid: '#fff',
+    blackGrid: 'lightgrey',
+    whitePieceColor: '#2b2b2b',
+    blackPieceColor: '#2b2b2b',
+    gridSize: 50,
+    fontSize: 40,
+}
+
+export const woodenTheme = {
+    borderColor: '#AD9278',
+    whiteGrid: '#D1BF9D',
+    blackGrid: '#AD9278',
+    whitePieceColor: '#2b2b2b',
+    blackPieceColor: '#2b2b2b',
+    gridSize: 50,
+    fontSize: 40,
+}
 
 // default board
 export const grid = [

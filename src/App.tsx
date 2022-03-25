@@ -2,8 +2,9 @@ import React from 'react';
 import 'src/App.css';
 import SvgBoard from 'src/components/svg-board';
 import Board from 'src/components/board';
-import ThemeContenxtProvider from './context/theme';
+import ThemeContenxtProvider from 'src/context/theme';
 import BoardContextProvider from 'src/context/board';
+import ThemeSelect from 'src/components/theme-select';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <BoardContextProvider>
                     <div className='container'>
                         <Board />
+                        <ThemeSelect />
                     </div>
                     <div className='container'>
                         <SvgBoard />

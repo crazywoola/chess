@@ -3,11 +3,12 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    padding-top: 100px;
 }
 .container {
     display: flex;
-    justify-content: center;
     align-items: center;
     min-height: 100%;
     width: 100%;
+    flex-direction: column;
 }
