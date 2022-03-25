@@ -26,7 +26,7 @@ function App() {
                                 </div>
                             </div>
                         </div>
-                        <div className="sm-12 md-12 lg-5 col">
+                        <div className="sm-12 md-12 col">
                             <div className='paper container-md'>
                                 <ChessManual />
                             </div>
