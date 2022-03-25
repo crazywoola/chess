@@ -6,7 +6,7 @@ const ChessManual = () => {
         <p className="article-meta">Written by Banana</p>
         <p className="lead">Still Work In Progress</p>
         <div className="row">
-            <div className="col col-6 padding-none">
+            <div className="col padding-none">
                 <p>White Moves</p>
                 <ol>
                     <li> Pawn to A3</li>
@@ -23,7 +23,7 @@ const ChessManual = () => {
                     <li> Knight to F3</li>
                 </ol>
             </div>
-            <div className="col col-6 padding-none">
+            <div className="col padding-none">
                 <p>Black Moves</p>
                 <ol>
                     <li> Pawn to A3</li>
