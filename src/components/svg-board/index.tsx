@@ -19,22 +19,22 @@ const SvgBoard = () => {
                         height={gridSize}
                     >
                         <rect
-                            x={rowIndex * gridSize}
-                            y={colIndex * gridSize}
+                            x={colIndex * gridSize}
+                            y={rowIndex * gridSize}
                             width={gridSize}
                             height={gridSize}
                             style={{ fill: col === 1 ? blackGrid : whiteGrid }}
                         />
                         <text
-                            x={gridSize / 2 + gridSize * rowIndex}
-                            y={gridSize / 2 + gridSize * colIndex}
+                            x={gridSize / 2 + gridSize * colIndex}
+                            y={gridSize / 2 + gridSize * rowIndex}
                             dominant-baseline="middle"
                             text-anchor="middle"
                             font-size={fontSize}
                             stroke={pieceColor}
                             opacity={0.8}
                         >
-                            {initMap[colIndex][rowIndex]}
+                            {initMap[rowIndex][colIndex]}
                         </text>
                     </g>
 
