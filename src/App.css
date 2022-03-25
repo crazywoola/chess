@@ -1,3 +1,9 @@
+.app {
+    background-color: #fafafa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
 .container {
     display: flex;
     justify-content: center;

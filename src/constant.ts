@@ -4,6 +4,7 @@ export const blackGrid = "lightgrey";
 export const pieceColor = '#2b2b2b';
 export const gridSize = 50;
 export const fontSize = 40;
+
 export const grid = [
     [0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0],
@@ -14,8 +15,7 @@ export const grid = [
     [0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0]
 ];
-
-export const WHITE_PIECES = {
+export const WHITE = {
     pawn: '♙',
     rock: '♖',
     knight: '♘',
@@ -24,7 +24,7 @@ export const WHITE_PIECES = {
     king: '♔',
 }
 
-export const BLACK_PIECES = {
+export const BLACK = {
     pawn: '♟',
     rock: '♜',
     knight: '♞',
@@ -33,17 +33,17 @@ export const BLACK_PIECES = {
     king: '♚',
 }
 
-export const EMPTY_PIECES = {
+export const FUNC = {
     blank: ''
 }
 
 export const initMap = [
-    [BLACK_PIECES.rock, BLACK_PIECES.knight, BLACK_PIECES.bishop, BLACK_PIECES.queen, BLACK_PIECES.king, BLACK_PIECES.bishop, BLACK_PIECES.knight, BLACK_PIECES.rock],
-    [BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn, BLACK_PIECES.pawn],
-    [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
-    [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
-    [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
-    [EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank, EMPTY_PIECES.blank,],
-    [WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn, WHITE_PIECES.pawn],
-    [WHITE_PIECES.rock, WHITE_PIECES.knight, WHITE_PIECES.bishop, WHITE_PIECES.queen, WHITE_PIECES.king, WHITE_PIECES.bishop, WHITE_PIECES.knight, WHITE_PIECES.rock],
+    [BLACK.rock, BLACK.knight, BLACK.bishop, BLACK.queen, BLACK.king, BLACK.bishop, BLACK.knight, BLACK.rock],
+    [BLACK.pawn, BLACK.pawn, BLACK.pawn, BLACK.pawn, BLACK.pawn, BLACK.pawn, BLACK.pawn, BLACK.pawn],
+    [FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank,],
+    [FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank,],
+    [FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank,],
+    [FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank, FUNC.blank,],
+    [WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn],
+    [WHITE.rock, WHITE.knight, WHITE.bishop, WHITE.queen, WHITE.king, WHITE.bishop, WHITE.knight, WHITE.rock],
 ];
