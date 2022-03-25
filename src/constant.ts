@@ -1,10 +1,12 @@
-export const boarderColor = "lightgrey";
+// default theme
+export const borderColor = "lightgrey";
 export const whiteGrid = "#fff";
 export const blackGrid = "lightgrey";
 export const pieceColor = '#2b2b2b';
 export const gridSize = 50;
 export const fontSize = 40;
 
+// default board
 export const grid = [
     [0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0],

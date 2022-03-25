@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     blackGrid,
-    boarderColor,
+    borderColor,
     fontSize,
     grid,
     gridSize,
@@ -11,7 +11,7 @@ import {
 } from 'src/constant';
 const SvgBoard = () => {
     return <div className='svg-board'>
-        <svg width={8 * gridSize} height={8 * gridSize} stroke={boarderColor}>
+        <svg width={8 * gridSize} height={8 * gridSize} stroke={borderColor}>
             {grid.map((row, rowIndex) => {
                 return row.map((col, colIndex) => {
                     return <g

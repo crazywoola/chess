@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     blackGrid,
-    boarderColor,
+    borderColor,
     fontSize,
     grid,
     gridSize,
@@ -35,7 +35,7 @@ const Board = () => {
     return <div className='board' style={{
         width: 8 * gridSize,
         height: 8 * gridSize,
-        border: `1px solid ${boarderColor}`,
+        border: `1px solid ${borderColor}`,
     }}>
         {grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
