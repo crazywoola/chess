@@ -1,7 +1,11 @@
+.board-container {
+    display: flex;
+    justify-content: center;
+    max-width: 448px;
+}
 .board {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
 }
 
 .cell {
@@ -10,13 +14,9 @@
     align-items: center;
     flex-grow: 1;
     flex-shrink: 0;
+    width: 12.5%;
+    height: 12.5%;
     cursor: pointer;
-}
-
-.board-container {
-    position: relative;
-    display: flex;
-
 }
 
 @mixin row-bar {

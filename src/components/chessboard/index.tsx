@@ -26,11 +26,9 @@ const Cell = ({
     if (rowIndex % 2 !== 0 && colIndex % 2 !== 0) {
         backgroundColor = whiteGrid
     }
-    return <span
+    return <div
         className='cell'
         style={{
-            width: gridSize,
-            height: gridSize,
             color: blackPieceColor,
             backgroundColor: backgroundColor,
             fontSize: fontSize,
@@ -54,7 +52,7 @@ const Cell = ({
         }}
     >
         {toPiece(item)}
-    </span>
+    </div>
 };
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);

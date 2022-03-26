@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'src/App.scss';
 import ChessBoard from 'src/components/chessboard';
 import ThemeContenxtProvider from 'src/context/theme';
@@ -8,30 +8,30 @@ import ActionSelect from 'src/components/action-select';
 import ChessManual from 'src/components/chess-manual';
 
 function App() {
-    const [showChessManual, setShowChessManual] = useState(false);
     return (
         <ThemeContenxtProvider>
             <BoardContextProvider>
-                <div className="col">
-                    <div className="paper container">
-                        <div className="row flex-spaces">
+                <div className="container-md">
+                    <div className="row">
+                        <div className="sm-4 col main-container">
                             <article className="article">
-                                <h3 className=''>Simple Chess Board</h3>
-                                <p className='article-meta'>Created By Banana</p>
+                                <h3 className='article-title'>Simple Chess Board</h3>
+                                <h3 className='article-meta'>Made by banana with ❤️</h3>
                             </article>
                             <ChessBoard />
                         </div>
+                        
+                        <div className="sm-6 col">
+                            <div className="paper">
+                                <ChessManual />
+                            </div>
+                        </div>
+
+                        <div className="sm-2 col">
+                            <ThemeSelect />
+                            <ActionSelect />
+                        </div>
                     </div>
-                </div>
-                {showChessManual && <div className="col">
-                    <div className="paper container">
-                        <ChessManual />
-                    </div>
-                </div>}
-                <div className='side-menu'>
-                    <button onClick={() => setShowChessManual(s => !s)}>Open Chess Manmual</button>
-                    <ThemeSelect />
-                    <ActionSelect />
                 </div>
             </BoardContextProvider>
         </ThemeContenxtProvider>

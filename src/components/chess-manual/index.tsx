@@ -5,7 +5,7 @@ const ChessManual = () => {
     const { chessboard } = useContext(BoardContext);
     return <article className='article'>
         <h4 className=''>Chess Manual</h4>
-        <p className="article-meta">Written by Banana</p>
+        {/* <p className="article-meta">Written by Banana</p> */}
         <div className="row">
             <div className="col padding-none">
                 <ol>
