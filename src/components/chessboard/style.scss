@@ -1,13 +1,65 @@
 .board {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
+
 .cell {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  flex-shrink: 0;
-  cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.board-container {
+    position: relative;
+    display: flex;
+
+}
+
+@mixin row-bar {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        display: inline-flex;
+        justify-content: center;
+        flex-grow: 1;
+    }
+}
+
+@mixin col-bar {
+    width: 16px;
+    text-align: center;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+    }
+}
+
+.top-bar {
+    @include row-bar();
+}
+
+.bottom-bar {
+    @include row-bar();
+}
+
+.left-bar {
+    margin-right: 4px;
+    @include col-bar();
+}
+
+.right-bar {
+    margin-left: 4px;
+    @include col-bar();
 }

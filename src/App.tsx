@@ -19,9 +19,7 @@ function App() {
                                 <h3 className=''>Simple Chess Board</h3>
                                 <p className='article-meta'>Created By Banana</p>
                             </article>
-                            <div className="">
-                                <ChessBoard />
-                            </div>
+                            <ChessBoard />
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import { ThemeContext } from 'src/context/theme';
 import { BoardContext } from 'src/context/board';
 import { toPiece } from 'src/operations/index';
+import { xAxis, yAxis } from 'src/constant';
 import './style.scss';
+
 
 interface CellProps {
     item: any;
@@ -22,7 +24,6 @@ const Cell = ({
     if (rowIndex % 2 !== 0 && colIndex % 2 !== 0) {
         backgroundColor = whiteGrid
     }
-    console.log(item)
     return <span
         className='cell'
         style={{
@@ -39,22 +40,58 @@ const Cell = ({
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
     const { chessboard } = useContext(BoardContext);
-    console.log(chessboard);
-    return <div className='board' style={{
-        width: 8 * gridSize,
-        height: 8 * gridSize,
-        border: `1px solid ${borderColor}`,
-    }}>
-        {chessboard.board().map((row: object[], rowIndex: number) => {
-            return row.map((item: any, colIndex: number) => {
-                return <Cell
-                    key={`grid-${rowIndex}-${colIndex}`}
-                    item={item}
-                    rowIndex={rowIndex}
-                    colIndex={colIndex}
-                />
-            })
-        })}
+    return <div className="board-container" style={{ border: `1px solid ${borderColor}`, }}>
+        <div
+            className='left-bar'
+            style={{
+                height: 8 * gridSize,
+            }}
+        >
+            {yAxis.map((i) => <span key={i}>{i}</span>)}
+        </div>
+        <div>
+            <div
+                className='top-bar'
+                style={{
+                    width: 8 * gridSize,
+                }}
+            >
+                 {xAxis.map((i) => <span key={i}>{i.toLowerCase()}</span>)}
+            </div>
+
+            <div className='board' style={{
+                width: 8 * gridSize,
+                height: 8 * gridSize,
+                border: `1px solid ${borderColor}`,
+            }}>
+                {chessboard.board().map((row: object[], rowIndex: number) => {
+                    return row.map((item: any, colIndex: number) => {
+                        return <Cell
+                            key={`grid-${rowIndex}-${colIndex}`}
+                            item={item}
+                            rowIndex={rowIndex}
+                            colIndex={colIndex}
+                        />
+                    })
+                })}
+            </div>
+            <div
+                className='bottom-bar'
+                style={{
+                    width: 8 * gridSize,
+                }}
+            >
+                {xAxis.map((i) => <span key={i}>{i}</span>)}
+            </div>
+        </div>
+        <div
+            className='right-bar'
+            style={{
+                height: 8 * gridSize,
+            }}
+        >
+           {yAxis.map((i) => <span key={i}>{i}</span>)}
+        </div>
     </div>
 };
 
