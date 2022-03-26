@@ -9,15 +9,14 @@ interface BoardContextProps {
     startPos: CellProps | undefined,
     // endPos: CellProps | undefined
     setStartPos: React.Dispatch<React.SetStateAction<CellProps | undefined>>
-    // setEndPos: React.Dispatch<React.SetStateAction<CellProps | undefined>>
+    resetChessboard: () => void;
 }
 export const BoardContext = createContext<BoardContextProps>({} as BoardContextProps);
 
 const BoardContenxtProvider: FC = ({ children }) => {
-    const chess = new Chess();
     // chess.move({ from: 'g2', to: 'g3' })
     // chess.moves({ square: 'e2' })
-    const [chessboard] = useState(chess);
+    const [chessboard, setChessboard] = useState(new Chess());
     const [startPos, setStartPos] = useState<CellProps | undefined>(undefined);
     // const [endPos, setEndPos] = useState<CellProps | undefined>(undefined);
     return <BoardContext.Provider
@@ -26,7 +25,9 @@ const BoardContenxtProvider: FC = ({ children }) => {
             startPos,
             // endPos,
             setStartPos,
-            // setEndPos
+            resetChessboard: () => {
+                setChessboard(new Chess())
+            }
         }}
     >
         {children}
