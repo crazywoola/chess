@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'src/App.scss';
-import Board from 'src/components/board';
+import ChessBoard from 'src/components/chessboard';
 import ThemeContenxtProvider from 'src/context/theme';
 import BoardContextProvider from 'src/context/board';
 import ThemeSelect from 'src/components/theme-select';
@@ -20,7 +20,7 @@ function App() {
                                 <p className='article-meta'>Created By Banana</p>
                             </article>
                             <div className="">
-                                <Board />
+                                <ChessBoard />
                             </div>
                         </div>
                     </div>
