@@ -16,7 +16,7 @@ const Cell = ({
     rowIndex,
     colIndex,
 }: CellProps) => {
-    const { theme: { gridSize, blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
+    const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     const { startPos, setStartPos, chessboard, setPromotion, setMoves } = useContext(BoardContext);
     
     let backgroundColor = blackGrid;
