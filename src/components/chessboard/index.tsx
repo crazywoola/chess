@@ -4,8 +4,6 @@ import { BoardContext } from 'src/context/board';
 import { toPiece } from 'src/operations/index';
 import { xAxis, yAxis } from 'src/constant';
 import './style.scss';
-
-
 interface CellProps {
     item: any;
     rowIndex: number;

@@ -1,4 +1,4 @@
-import { move, toPiece } from './index';
+import { move, toPiece, getGridAxis } from './index';
 import { initMap, FUNC, WHITE, BLACK } from 'src/constant';
 test('board: did not move', () => {
     const startPos = { col: 0, row: 0 }
@@ -53,5 +53,19 @@ test('get black pieces', () => {
 
 test('get empty grid', () => {
     expect(toPiece(null)).toEqual(FUNC.blank)
+})
 
+test('get grid axis', () => {
+    expect(getGridAxis({
+        col: 0,
+        row: 0,
+    })).toEqual('a1')
+    expect(getGridAxis({
+        col: 0,
+        row: 1,
+    })).toEqual('a2')
+    expect(getGridAxis({
+        col: 3,
+        row: 3,
+    })).toEqual('d4')
 })

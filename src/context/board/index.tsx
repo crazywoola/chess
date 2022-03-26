@@ -15,6 +15,9 @@ export const BoardContext = createContext<BoardContextProps>({} as BoardContextP
 
 const BoardContenxtProvider: FC = ({ children }) => {
     const chess = new Chess();
+    console.log(chess.moves())
+    // chess.move({ from: 'g2', to: 'g3' })
+    // chess.moves({ square: 'e2' })
     const [chessboard] = useState(chess);
     // const [startPos, setStartPos] = useState<CellProps | undefined>(undefined);
     // const [endPos, setEndPos] = useState<CellProps | undefined>(undefined);

@@ -1,4 +1,4 @@
-import { FUNC, WHITE, BLACK } from 'src/constant';
+import { FUNC, WHITE, BLACK, xAxis, yAxis } from 'src/constant';
 import isEqual from 'lodash/isEqual';
 
 interface CellProps {
@@ -68,4 +68,9 @@ export const toPiece = (piece: PieceProps | null) => {
                 return BLACK.pawn;
         }
     }
+}
+
+export const getGridAxis = (cell: CellProps) => {
+    const { col, row } = cell;
+    return `${xAxis[col].toLowerCase()}${yAxis[row]}`
 }
