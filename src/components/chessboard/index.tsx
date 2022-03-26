@@ -40,7 +40,9 @@ const Cell = ({
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
     const { chessboard } = useContext(BoardContext);
-    return <div className="board-container" style={{ border: `1px solid ${borderColor}`, }}>
+    return <div className="board-container" style={{
+        border: `1px solid ${borderColor}`,
+    }}>
         <div
             className='left-bar'
             style={{
@@ -56,7 +58,7 @@ const ChessBoard = () => {
                     width: 8 * gridSize,
                 }}
             >
-                 {xAxis.map((i) => <span key={i}>{i.toLowerCase()}</span>)}
+                {xAxis.map((i) => <span key={i}>{i.toLowerCase()}</span>)}
             </div>
 
             <div className='board' style={{
@@ -90,7 +92,7 @@ const ChessBoard = () => {
                 height: 8 * gridSize,
             }}
         >
-           {yAxis.map((i) => <span key={i}>{i}</span>)}
+            {yAxis.map((i) => <span key={i}>{i}</span>)}
         </div>
     </div>
 };

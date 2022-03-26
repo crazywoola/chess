@@ -1,9 +1,9 @@
 import React, { FC, createContext, useState } from 'react';
 import Chess from 'chess.js';
-interface CellProps {
-    col: number;
-    row: number;
-}
+// interface CellProps {
+//     col: number;
+//     row: number;
+// }
 interface BoardContextProps {
     chessboard: any;
     // startPos: CellProps | undefined,
