@@ -14,13 +14,11 @@ function App() {
                 <div className="container-md">
                     <div className="row">
                         <div className="sm-4 col main-container">
-                            <article className="article">
-                                <h3 className='article-title'>Simple Chess Board</h3>
-                                <h3 className='article-meta'>Made by banana with ❤️</h3>
-                            </article>
+                            <h3 className=''>Simple Chess Board</h3>
+                            <p className=''>Made by banana with ❤️</p>
                             <ChessBoard />
                         </div>
-                        
+
                         <div className="sm-6 col">
                             <div className="paper">
                                 <ChessManual />
