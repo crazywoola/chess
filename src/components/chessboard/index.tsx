@@ -40,9 +40,7 @@ const Cell = ({
                 const from = { row: rowIndex, col: colIndex }
                 setStartPos(from)
                 const availableMoves = chessboard.moves({ from })
-                console.log(availableMoves)
                 const promotionMoves = availableMoves.filter((i: string) => i.includes('='));
-                console.log(promotionMoves);
                 if(promotionMoves.length > 0) {
                     setPromotion(true);
                     setMoves(promotionMoves);
@@ -50,10 +48,6 @@ const Cell = ({
             } else {
                 const from = getGridAxis(startPos)
                 const to = getGridAxis({ row: rowIndex, col: colIndex })
-                const availableMoves = chessboard.moves({ from })
-                console.log(availableMoves)
-                // promotion 'c1=Q', 'c1=R', 'c1=B', 'c1=N+'
-                // TODO: useModal to make a promotion move
                 chessboard.move({ from, to })
                 setStartPos(undefined)
             }
