@@ -39,12 +39,7 @@ const Cell = ({
             } else {
                 const from = getGridAxis(startPos)
                 const to = getGridAxis({ row: rowIndex, col: colIndex })
-                const availbleMoves = chessboard.moves({ square: from })
-                const item = chessboard.get(from)
-                const to_SAN = item && item.type !== 'p' ? `${item.type.toUpperCase()}${to}` : to
-                if(availbleMoves.includes(to_SAN)) {
-                    chessboard.move({ from, to })
-                }
+                chessboard.move({ from, to })
                 setStartPos(undefined)
             }
         }}
