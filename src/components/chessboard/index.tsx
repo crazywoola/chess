@@ -33,12 +33,15 @@ const Cell = ({
             fontSize: fontSize,
         }}
         onClick={() => {
-            console.log(item)
             if(startPos === undefined) {
                 setStartPos({ row: rowIndex, col: colIndex })
             } else {
                 const from = getGridAxis(startPos)
                 const to = getGridAxis({ row: rowIndex, col: colIndex })
+                const availableMoves = chessboard.moves({ from })
+                console.log(availableMoves)
+                // promotion 'c1=Q', 'c1=R', 'c1=B', 'c1=N+'
+                // TODO: useModal to make a promotion move
                 chessboard.move({ from, to })
                 setStartPos(undefined)
             }
