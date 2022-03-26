@@ -24,8 +24,8 @@ import {
 //     expect(newBoard[endPos.row][endPos.col]).toBe(initMap[startPos.row][startPos.col]);
 // });
 
-describe('get piedes', () => {
-    test('get white pieces', () => {
+describe('get pieces', () => {
+    test('white pieces', () => {
         const rockPiece = {
             color: "w",
             type: "r"
@@ -43,7 +43,7 @@ describe('get piedes', () => {
         expect(toPiece(knightPiece)).toEqual(WHITE.knight)
     })
     
-    test('get black pieces', () => {
+    test('black pieces', () => {
         const rockPiece = {
             color: "b",
             type: "r"
@@ -60,13 +60,13 @@ describe('get piedes', () => {
         expect(toPiece(pawnPiece)).toEqual(BLACK.pawn)
         expect(toPiece(knightPiece)).toEqual(BLACK.knight)
     })
-    test('get empty grid', () => {
+    test('empty grid', () => {
         expect(toPiece(null)).toEqual(FUNC.blank)
     })
 })
 
 describe('get grid axis', () => {
-    test('get grid axis', () => {
+    test('grid axis', () => {
         expect(getGridAxis({
             col: 0,
             row: 0,
