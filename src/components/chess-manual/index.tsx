@@ -6,7 +6,6 @@ const ChessManual = () => {
     return <article className='article'>
         <h4 className=''>Chess Manual</h4>
         <p className="article-meta">Written by Banana</p>
-        <p className="lead">Still Work In Progress</p>
         <div className="row">
             <div className="col padding-none">
                 <ol>

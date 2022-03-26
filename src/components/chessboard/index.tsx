@@ -3,19 +3,22 @@ import { ThemeContext } from 'src/context/theme';
 import { BoardContext } from 'src/context/board';
 import { getGridAxis, toPiece } from 'src/operations/index';
 import { xAxis, yAxis } from 'src/constant';
+import PromotionModal from 'src/components/promotion-modal';
 import './style.scss';
 interface CellProps {
     item: any;
     rowIndex: number;
     colIndex: number;
 }
+
 const Cell = ({
     item,
     rowIndex,
     colIndex,
 }: CellProps) => {
     const { theme: { gridSize, blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
-    const { startPos, setStartPos, chessboard } = useContext(BoardContext);
+    const { startPos, setStartPos, chessboard, setPromotion, setMoves } = useContext(BoardContext);
+    
     let backgroundColor = blackGrid;
     if (rowIndex % 2 === 0 && colIndex % 2 === 0) {
         backgroundColor = whiteGrid
@@ -33,8 +36,17 @@ const Cell = ({
             fontSize: fontSize,
         }}
         onClick={() => {
-            if(startPos === undefined) {
-                setStartPos({ row: rowIndex, col: colIndex })
+            if (startPos === undefined) {
+                const from = { row: rowIndex, col: colIndex }
+                setStartPos(from)
+                const availableMoves = chessboard.moves({ from })
+                console.log(availableMoves)
+                const promotionMoves = availableMoves.filter((i: string) => i.includes('='));
+                console.log(promotionMoves);
+                if(promotionMoves.length > 0) {
+                    setPromotion(true);
+                    setMoves(promotionMoves);
+                }
             } else {
                 const from = getGridAxis(startPos)
                 const to = getGridAxis({ row: rowIndex, col: colIndex })
@@ -56,6 +68,7 @@ const ChessBoard = () => {
     return <div className="board-container" style={{
         border: `1px solid ${borderColor}`,
     }}>
+        <PromotionModal />
         <div
             className='left-bar'
             style={{

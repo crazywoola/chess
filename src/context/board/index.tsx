@@ -6,24 +6,29 @@ interface CellProps {
 }
 interface BoardContextProps {
     chessboard: any;
-    startPos: CellProps | undefined,
-    // endPos: CellProps | undefined
-    setStartPos: React.Dispatch<React.SetStateAction<CellProps | undefined>>
+    startPos: CellProps | undefined;
+    promotion: boolean;
+    moves: string[];
+    setMoves: React.Dispatch<React.SetStateAction<string[]>>;
+    setPromotion: React.Dispatch<React.SetStateAction<boolean>>;
+    setStartPos: React.Dispatch<React.SetStateAction<CellProps | undefined>>;
     resetChessboard: () => void;
 }
 export const BoardContext = createContext<BoardContextProps>({} as BoardContextProps);
 
 const BoardContenxtProvider: FC = ({ children }) => {
-    // chess.move({ from: 'g2', to: 'g3' })
-    // chess.moves({ square: 'e2' })
     const [chessboard, setChessboard] = useState(new Chess());
     const [startPos, setStartPos] = useState<CellProps | undefined>(undefined);
-    // const [endPos, setEndPos] = useState<CellProps | undefined>(undefined);
+    const [promotion, setPromotion] = useState(false);
+    const [moves, setMoves] = useState<string[]>([])
     return <BoardContext.Provider
         value={{
             chessboard,
             startPos,
-            // endPos,
+            promotion,
+            moves,
+            setMoves,
+            setPromotion,
             setStartPos,
             resetChessboard: () => {
                 setChessboard(new Chess())
