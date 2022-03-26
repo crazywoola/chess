@@ -70,15 +70,15 @@ describe('get grid axis', () => {
         expect(getGridAxis({
             col: 0,
             row: 0,
-        })).toEqual('a1')
+        })).toEqual('a8')
         expect(getGridAxis({
             col: 0,
             row: 1,
-        })).toEqual('a2')
+        })).toEqual('a7')
         expect(getGridAxis({
             col: 3,
             row: 3,
-        })).toEqual('d4')
+        })).toEqual('d5')
     })
 })
 

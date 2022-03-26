@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'src/context/theme';
 import { BoardContext } from 'src/context/board';
-import { toPiece } from 'src/operations/index';
+import { getGridAxis, toPiece } from 'src/operations/index';
 import { xAxis, yAxis } from 'src/constant';
 import './style.scss';
 interface CellProps {
@@ -15,6 +15,7 @@ const Cell = ({
     colIndex,
 }: CellProps) => {
     const { theme: { gridSize, blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
+    const { startPos, setStartPos, chessboard } = useContext(BoardContext);
     let backgroundColor = blackGrid;
     if (rowIndex % 2 === 0 && colIndex % 2 === 0) {
         backgroundColor = whiteGrid
@@ -30,6 +31,22 @@ const Cell = ({
             color: blackPieceColor,
             backgroundColor: backgroundColor,
             fontSize: fontSize,
+        }}
+        onClick={() => {
+            console.log(item)
+            if(startPos === undefined) {
+                setStartPos({ row: rowIndex, col: colIndex })
+            } else {
+                const from = getGridAxis(startPos)
+                const to = getGridAxis({ row: rowIndex, col: colIndex })
+                const availbleMoves = chessboard.moves({ square: from })
+                const item = chessboard.get(from)
+                const to_SAN = item && item.type !== 'p' ? `${item.type.toUpperCase()}${to}` : to
+                if(availbleMoves.includes(to_SAN)) {
+                    chessboard.move({ from, to })
+                }
+                setStartPos(undefined)
+            }
         }}
     >
         {toPiece(item)}

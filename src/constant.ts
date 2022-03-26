@@ -31,7 +31,7 @@ export const grid = [
     [1, 0, 1, 0, 1, 0, 1, 0]
 ];
 
-export const yAxis = [1, 2, 3, 4, 5, 6, 7, 8];
+export const yAxis = [8, 7, 6, 5, 4, 3, 2, 1];
 export const xAxis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 export const WHITE = {
     pawn: '♙',
