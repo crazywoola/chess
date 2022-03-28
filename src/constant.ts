@@ -1,3 +1,16 @@
+import BLACK_PAWN from 'src/assets/black-pawn.png';
+import BLACK_ROCK from 'src/assets/black-rock.png';
+import BLACK_KNIGHT from 'src/assets/black-knight.png';
+import BLACK_BISHOP from 'src/assets/black-bishop.png';
+import BLACK_QUEEN from 'src/assets/black-queen.png';
+import BLACK_KING from 'src/assets/black-king.png';
+
+import WHITE_PAWN from 'src/assets/white-pawn.png';
+import WHITE_ROCK from 'src/assets/white-rock.png';
+import WHITE_KNIGHT from 'src/assets/white-knight.png';
+import WHITE_BISHOP from 'src/assets/white-bishop.png';
+import WHITE_QUEEN from 'src/assets/white-queen.png';
+import WHITE_KING from 'src/assets/white-king.png';
 // default theme
 export const defaultTheme = {
     borderColor: 'lightgrey',
@@ -40,6 +53,12 @@ export const WHITE = {
     bishop: '♗',
     queen: '♕',
     king: '♔',
+    pawn_img: WHITE_PAWN,
+    rock_img: WHITE_ROCK,
+    knight_img: WHITE_KNIGHT,
+    bishop_img: WHITE_BISHOP,
+    queen_img: WHITE_QUEEN,
+    king_img: WHITE_KING,
 }
 
 export const BLACK = {
@@ -49,6 +68,12 @@ export const BLACK = {
     bishop: '♝',
     queen: '♛',
     king: '♚',
+    pawn_img: BLACK_PAWN,
+    rock_img: BLACK_ROCK,
+    knight_img: BLACK_KNIGHT,
+    bishop_img: BLACK_BISHOP,
+    queen_img: BLACK_QUEEN,
+    king_img: BLACK_KING,
 }
 
 export const FUNC = {

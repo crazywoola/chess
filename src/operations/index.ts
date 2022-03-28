@@ -70,6 +70,48 @@ export const toPiece = (piece: PieceProps | null) => {
     }
 }
 
+
+export const toPieceImg = (piece: PieceProps | null) => {
+    if(piece === null) {
+        return FUNC.blank;
+    }
+    if (piece.color === 'w') {
+        switch (piece.type) {
+            case 'p':
+                return WHITE.pawn_img;
+            case 'r':
+                return WHITE.rock_img;
+            case 'n':
+                return WHITE.knight_img;
+            case 'b':
+                return WHITE.bishop_img;
+            case 'q':
+                return WHITE.queen_img;
+            case 'k':
+                return WHITE.king_img;
+            default:
+                return WHITE.pawn_img;
+        }
+    }
+    if (piece.color === 'b') {
+        switch (piece.type) {
+            case 'p':
+                return BLACK.pawn_img;
+            case 'r':
+                return BLACK.rock_img;
+            case 'n':
+                return BLACK.knight_img;
+            case 'b':
+                return BLACK.bishop_img;
+            case 'q':
+                return BLACK.queen_img;
+            case 'k':
+                return BLACK.king_img;
+            default:
+                return BLACK.pawn_img;
+        }
+    }
+}
 export const getGridAxis = (cell: CellProps) => {
     const { col, row } = cell;
     return `${xAxis[col].toLowerCase()}${yAxis[row]}`

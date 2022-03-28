@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'src/context/theme';
 import { BoardContext } from 'src/context/board';
-import { getGridAxis, toPiece } from 'src/operations/index';
+import { getGridAxis, toPieceImg } from 'src/operations/index';
 import { xAxis, yAxis } from 'src/constant';
 import PromotionModal from 'src/components/promotion-modal';
 import './style.scss';
@@ -51,7 +51,7 @@ const Cell = ({
             }
         }}
     >
-        {toPiece(item)}
+       <img src={toPieceImg(item)} alt="" />
     </div>
 };
 const ChessBoard = () => {
