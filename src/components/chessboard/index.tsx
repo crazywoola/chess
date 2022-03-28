@@ -51,7 +51,7 @@ const Cell = ({
             }
         }}
     >
-       <img src={toPieceImg(item)} alt="" />
+      {item !== null ?  <img className="no-border" src={toPieceImg(item)} alt="" /> : <span />}
     </div>
 };
 const ChessBoard = () => {
