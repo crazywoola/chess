@@ -16,8 +16,8 @@ const ChessManual = () => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>White</th>
-                            <th>Black</th>
+                            <th>Player 1</th>
+                            <th>Player 2</th>
                             <th>Notation</th>
                         </tr>
                     </thead>
