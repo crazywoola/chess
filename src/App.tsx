@@ -17,6 +17,7 @@ function App() {
                             <h3 className=''>Simple Chess Board</h3>
                             <p className=''>Made by banana with ❤️</p>
                             <ChessBoard />
+                            <ThemeSelect />
                         </div>
 
                         <div className="sm-6 col">
@@ -26,7 +27,6 @@ function App() {
                         </div>
 
                         <div className="sm-2 col">
-                            <ThemeSelect />
                             <ActionSelect />
                         </div>
                     </div>

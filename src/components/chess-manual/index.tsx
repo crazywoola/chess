@@ -26,13 +26,21 @@ const ChessManual = () => {
                             console.log(first, second);
                             return <tr key={idx}>
                                 <td>{idx}</td>
-                                <td>{first ? `${toPiece({color: first.color, type: first.piece})} from ${first.from} to ${first.to}` : ``}</td>
-                                <td>{second ? `${toPiece({color: second.color, type: second.piece})} from ${second.from} to ${second.to}` : ``}</td>
+                                <td>{first ? `${toPiece({ color: first.color, type: first.piece })} from ${first.from} to ${first.to}` : ``}</td>
+                                <td>{second ? `${toPiece({ color: second.color, type: second.piece })} from ${second.from} to ${second.to}` : ``}</td>
                                 <td>{first?.san} {second?.san}</td>
                             </tr>
                         })}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="col-12">
+                <pre>
+                    <code>
+                        {chessboard.fen()}
+                    </code>
+                </pre>
             </div>
         </div>
 

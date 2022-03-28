@@ -12,7 +12,7 @@ const PromotionModal = () => {
         <div className="modal">
             <label className="modal-bg" htmlFor="modal-promotion" ></label>
             <div className="modal-body">
-                <label className="btn-close" htmlFor="modal-2" onClick={resetConds}>X</label>
+                <label className="btn-close" htmlFor="modal-promotion" onClick={resetConds}>X</label>
                 <h4 className="modal-title">Promotion!</h4>
                 <h5 className="modal-subtitle">Choose your move!</h5>
                 <div className="row">
