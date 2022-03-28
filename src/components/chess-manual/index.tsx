@@ -23,7 +23,6 @@ const ChessManual = () => {
                     </thead>
                     <tbody>
                         {history.map(([first, second], idx: number) => {
-                            console.log(first, second);
                             return <tr key={idx}>
                                 <td>{idx}</td>
                                 <td>{first ? `${toPiece({ color: first.color, type: first.piece })} from ${first.from} to ${first.to}` : ``}</td>
