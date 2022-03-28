@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BoardContext } from 'src/context/board';
 import chunk from 'lodash/chunk';
 import djs from 'dayjs';
+import { toPiece } from 'src/operations';
 
 const ChessManual = () => {
     const { chessboard } = useContext(BoardContext);
@@ -25,8 +26,8 @@ const ChessManual = () => {
                             console.log(first, second);
                             return <tr key={idx}>
                                 <td>{idx}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{first ? `${toPiece({color: first.color, type: first.piece})} from ${first.from} to ${first.to}` : ``}</td>
+                                <td>{second ? `${toPiece({color: second.color, type: second.piece})} from ${second.from} to ${second.to}` : ``}</td>
                                 <td>{first?.san} {second?.san}</td>
                             </tr>
                         })}
