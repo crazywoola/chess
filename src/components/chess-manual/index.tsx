@@ -5,6 +5,7 @@ import djs from 'dayjs';
 
 const ChessManual = () => {
     const { chessboard } = useContext(BoardContext);
+    const history: any[] = chunk(chessboard.history({ verbose: true }), 2);
     return <article className='article'>
         <h4 className=''>Chess Manual</h4>
         <p className="article-meta">Created At {djs().format('YYYY-MM-DD')}</p>
@@ -16,25 +17,21 @@ const ChessManual = () => {
                             <th>#</th>
                             <th>White</th>
                             <th>Black</th>
-                            <th>Comment</th>
+                            <th>Notation</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {chunk(chessboard.history(), 2).map((i: any, idx: number) => {
-                            return <tr>
+                        {history.map(([first, second], idx: number) => {
+                            console.log(first, second);
+                            return <tr key={idx}>
                                 <td>{idx}</td>
-                                <td>{i[0]}</td>
-                                <td>{i[1]}</td>
                                 <td></td>
+                                <td></td>
+                                <td>{first?.san} {second?.san}</td>
                             </tr>
                         })}
                     </tbody>
                 </table>
-                {/* <ol>
-                    {chunk(chessboard.history(), 2).map((i: any, idx: number) => {
-                        return <li key={idx}>{i[0]} {i[1]}</li>
-                    })}
-                </ol> */}
             </div>
         </div>
 
