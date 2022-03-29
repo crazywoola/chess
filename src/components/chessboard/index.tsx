@@ -9,15 +9,17 @@ interface CellProps {
     item: any;
     rowIndex: number;
     colIndex: number;
+    gridAxis: string;
 }
 
 const Cell = ({
     item,
     rowIndex,
     colIndex,
+    gridAxis,
 }: CellProps) => {
     const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
-    const { startPos, setStartPos, chessboard, setPromotion, setMoves } = useContext(BoardContext);
+    const { startPos, setStartPos, chessboard, setPromotion, setMoves, markedMoves } = useContext(BoardContext);
 
     let backgroundColor = blackGrid;
     if (rowIndex % 2 === 0 && colIndex % 2 === 0) {
@@ -45,18 +47,20 @@ const Cell = ({
                 }
             } else {
                 const from = getGridAxis(startPos)
-                const to = getGridAxis({ row: rowIndex, col: colIndex })
+                const to = gridAxis
                 chessboard.move({ from, to })
                 setStartPos(undefined)
             }
         }}
     >
-        {item !== null ? <img className="no-border" src={toPieceImg(item)} alt="" /> : <span />}
+        {item !== null
+            ? <img className="no-border" src={toPieceImg(item)} alt="" />
+            : <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />}
     </div>
 };
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
-    const { chessboard } = useContext(BoardContext);
+    const { chessboard, showTips, setShowTips } = useContext(BoardContext);
     return <>
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,
@@ -88,7 +92,8 @@ const ChessBoard = () => {
                     {chessboard.board().map((row: object[], rowIndex: number) => {
                         return row.map((item: any, colIndex: number) => {
                             return <Cell
-                                key={`grid-${rowIndex}-${colIndex}`}
+                                key={getGridAxis({ row: rowIndex, col: colIndex })}
+                                gridAxis={getGridAxis({ row: rowIndex, col: colIndex })}
                                 item={item}
                                 rowIndex={rowIndex}
                                 colIndex={colIndex}
@@ -115,10 +120,19 @@ const ChessBoard = () => {
             </div>
 
         </div>
-        <div className="row">
-           <div className="col">
-           Current Move: {chessboard.turn() === 'w' ? 'White' : 'Black'}
-           </div>
+        <div className="flex-center align-middle">
+            <div className="col">
+                Current Move: {chessboard.turn() === 'w' ? 'White' : 'Black'}
+            </div>
+            <fieldset className="form-group">
+                <label htmlFor="showTips" className="paper-switch-label">
+                    Show Availble Moves
+                </label>
+                <label className="paper-switch">
+                    <input id="showTips" name="showTips" type="checkbox" checked={showTips} onChange={() => setShowTips(s => !s)} />
+                    <span className="paper-switch-slider round"></span>
+                </label>
+            </fieldset>
         </div>
     </>
 };
