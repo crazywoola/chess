@@ -2,6 +2,7 @@ import React, { FC, createContext, useState } from 'react';
 interface AlertContextProps {
     show: boolean;
     text: string;
+    toast: (str: string) => void;
     clear: () => void;
 }
 export const AlertContext = createContext<AlertContextProps>({} as AlertContextProps);
@@ -13,6 +14,10 @@ const AlertContenxtProvider: FC = ({ children }) => {
         value={{
             show,
             text,
+            toast: (str: string) => {
+                setText(str);
+                setShow(true);
+            },
             clear: () =>{
                 setText('');
                 setShow(false);
