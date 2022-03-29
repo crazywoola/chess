@@ -15,7 +15,7 @@ function App() {
             <ThemeContenxtProvider>
                 <BoardContextProvider>
                     <div className="container-md">
-                        <Alert />ss
+                        <Alert />
                         <div className="row">
                             <div className="sm-4 col main-container">
                                 <h3 className=''>Simple Chess Board</h3>
