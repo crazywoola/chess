@@ -18,7 +18,7 @@ const Cell = ({
 }: CellProps) => {
     const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     const { startPos, setStartPos, chessboard, setPromotion, setMoves } = useContext(BoardContext);
-    
+
     let backgroundColor = blackGrid;
     if (rowIndex % 2 === 0 && colIndex % 2 === 0) {
         backgroundColor = whiteGrid
@@ -39,7 +39,7 @@ const Cell = ({
                 setStartPos(from)
                 const availableMoves = chessboard.moves({ from })
                 const promotionMoves = availableMoves.filter((i: string) => i.includes('='));
-                if(promotionMoves.length > 0) {
+                if (promotionMoves.length > 0) {
                     setPromotion(true);
                     setMoves(promotionMoves);
                 }
@@ -51,68 +51,74 @@ const Cell = ({
             }
         }}
     >
-      {item !== null ?  <img className="no-border" src={toPieceImg(item)} alt="" /> : <span />}
+        {item !== null ? <img className="no-border" src={toPieceImg(item)} alt="" /> : <span />}
     </div>
 };
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
     const { chessboard } = useContext(BoardContext);
-    return <div className="board-container" style={{
-        border: `1px solid ${borderColor}`,
-    }}>
-        <PromotionModal />
-        <div
-            className='left-bar'
-            style={{
-                height: 8 * gridSize,
-            }}
-        >
-            {yAxis.map((i) => <span key={i}>{i}</span>)}
-        </div>
-        <div>
+    return <>
+        <div className="board-container" style={{
+            border: `1px solid ${borderColor}`,
+        }}>
+            <PromotionModal />
             <div
-                className='top-bar'
+                className='left-bar'
                 style={{
-                    width: 8 * gridSize,
+                    height: 8 * gridSize,
                 }}
             >
-                {xAxis.map((i) => <span key={i}>{i.toLowerCase()}</span>)}
+                {yAxis.map((i) => <span key={i}>{i}</span>)}
+            </div>
+            <div>
+                <div
+                    className='top-bar'
+                    style={{
+                        width: 8 * gridSize,
+                    }}
+                >
+                    {xAxis.map((i) => <span key={i}>{i.toLowerCase()}</span>)}
+                </div>
+
+                <div className='board' style={{
+                    width: 8 * gridSize,
+                    height: 8 * gridSize,
+                    border: `1px solid ${borderColor}`,
+                }}>
+                    {chessboard.board().map((row: object[], rowIndex: number) => {
+                        return row.map((item: any, colIndex: number) => {
+                            return <Cell
+                                key={`grid-${rowIndex}-${colIndex}`}
+                                item={item}
+                                rowIndex={rowIndex}
+                                colIndex={colIndex}
+                            />
+                        })
+                    })}
+                </div>
+                <div
+                    className='bottom-bar'
+                    style={{
+                        width: 8 * gridSize,
+                    }}
+                >
+                    {xAxis.map((i) => <span key={i}>{i}</span>)}
+                </div>
+            </div>
+            <div
+                className='right-bar'
+                style={{
+                    height: 8 * gridSize,
+                }}
+            >
+                {yAxis.map((i) => <span key={i}>{i}</span>)}
             </div>
 
-            <div className='board' style={{
-                width: 8 * gridSize,
-                height: 8 * gridSize,
-                border: `1px solid ${borderColor}`,
-            }}>
-                {chessboard.board().map((row: object[], rowIndex: number) => {
-                    return row.map((item: any, colIndex: number) => {
-                        return <Cell
-                            key={`grid-${rowIndex}-${colIndex}`}
-                            item={item}
-                            rowIndex={rowIndex}
-                            colIndex={colIndex}
-                        />
-                    })
-                })}
-            </div>
-            <div
-                className='bottom-bar'
-                style={{
-                    width: 8 * gridSize,
-                }}
-            >
-                {xAxis.map((i) => <span key={i}>{i}</span>)}
-            </div>
         </div>
-        <div
-            className='right-bar'
-            style={{
-                height: 8 * gridSize,
-            }}
-        >
-            {yAxis.map((i) => <span key={i}>{i}</span>)}
+        <div className="col">
+            Current Move: {chessboard.turn() === 'w' ? 'White' : 'Black'}
         </div>
-    </div>
+    </>
 };
 
 export default ChessBoard;
