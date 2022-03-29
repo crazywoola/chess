@@ -116,7 +116,9 @@ const ChessBoard = () => {
 
         </div>
         <div className="row">
-            Current Move: {chessboard.turn() === 'w' ? 'White' : 'Black'}
+           <div className="col">
+           Current Move: {chessboard.turn() === 'w' ? 'White' : 'Black'}
+           </div>
         </div>
     </>
 };
