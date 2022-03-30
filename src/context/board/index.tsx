@@ -13,6 +13,7 @@ interface BoardContextProps {
     moves: string[];
     showTips: boolean;
     markedMoves: string[];
+    isGameOver: boolean;
     setMoves: React.Dispatch<React.SetStateAction<string[]>>;
     setPromotion: React.Dispatch<React.SetStateAction<boolean>>;
     setShowTips: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,13 +30,14 @@ const BoardContenxtProvider: FC = ({ children }) => {
     const [moves, setMoves] = useState<string[]>([])
     const [showTips, setShowTips] = useState(true);
     const [markedMoves, setMarkedMoves] = useState<string[]>([]);
-
+    const [isGameOver, setIsGameOver] = useState(false);
     const { toast, clear } = useContext(AlertContext);
 
     const cleanup = () => {
         setStartPos(undefined);
         setMoves([]);
         setPromotion(false);
+        setIsGameOver(false);
         clear(); // clear notice
     }
 
@@ -51,6 +53,7 @@ const BoardContenxtProvider: FC = ({ children }) => {
     useEffect(() => {
         if (chessboard.game_over()) {
             toast('Game Over!')
+            setIsGameOver(true);
         }
 
     }, [chessboard, startPos, toast])
@@ -59,6 +62,7 @@ const BoardContenxtProvider: FC = ({ children }) => {
             chessboard,
             startPos,
             promotion,
+            isGameOver,
             moves,
             setMoves,
             setPromotion,

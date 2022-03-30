@@ -4,7 +4,7 @@ import { BoardContext } from 'src/context/board';
 import { getGridAxis, toPieceImg } from 'src/operations/index';
 import { xAxis, yAxis } from 'src/constant';
 import PromotionModal from 'src/components/promotion-modal';
-// import PGNModal from 'src/components/pgn-modal';
+import PGNModal from 'src/components/pgn-modal';
 import './style.scss';
 interface CellProps {
     item: any;
@@ -67,7 +67,7 @@ const ChessBoard = () => {
             border: `1px solid ${borderColor}`,
         }}>
             <PromotionModal />
-            {/* <PGNModal /> */}
+            <PGNModal />
             <div
                 className='left-bar'
                 style={{
