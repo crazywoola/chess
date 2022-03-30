@@ -90,3 +90,5 @@ export const initMap = [
     [WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn, WHITE.pawn],
     [WHITE.rock, WHITE.knight, WHITE.bishop, WHITE.queen, WHITE.king, WHITE.bishop, WHITE.knight, WHITE.rock],
 ];
+
+export const DragDropType = 'chess'

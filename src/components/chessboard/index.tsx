@@ -6,11 +6,59 @@ import { xAxis, yAxis } from 'src/constant';
 import PromotionModal from 'src/components/promotion-modal';
 import PGNModal from 'src/components/pgn-modal';
 import './style.scss';
+import { DndProvider } from 'react-dnd'
+// import { TouchBackend } from 'react-dnd-touch-backend'
+import { useDrop, useDrag } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DragDropType } from 'src/constant';
 interface CellProps {
     item: any;
     rowIndex: number;
     colIndex: number;
     gridAxis: string;
+}
+
+interface IProps {
+    item: any;
+    gridAxis: string;
+    rowIndex: number;
+    colIndex: number;
+}
+
+const Piece = ({
+    colIndex,
+    rowIndex,
+    item,
+    gridAxis,
+}: IProps) => {
+    const { markedMoves, setStartPos } = useContext(BoardContext);
+
+    const [, drag] = useDrag(
+		() => ({
+			type: DragDropType,
+            item() {
+                const from = { row: rowIndex, col: colIndex }
+                setStartPos(from)
+
+                return {
+                    id: item.type,
+                }
+            },
+			collect: (monitor) => {
+                return {
+                    isDragging: !!monitor.isDragging(),
+                }
+            },
+		}),
+		[],
+	)
+
+    
+    if (!item) {
+        return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;
+    }
+
+    return <img className="no-border" src={toPieceImg(item)} alt="" ref={drag} />
 }
 
 const Cell = ({
@@ -22,6 +70,24 @@ const Cell = ({
     const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     const { startPos, setStartPos, chessboard, setPromotion, setMoves, markedMoves } = useContext(BoardContext);
 
+    const [, drop] = useDrop(
+        () => ({
+          accept: DragDropType,
+          drop: () => {
+            const from = getGridAxis(startPos as any)
+            const to = gridAxis
+            chessboard.move({ from, to })
+            setStartPos(undefined)
+          },
+          canDrop: () => markedMoves.includes(gridAxis),
+          collect: (monitor) => ({
+            isOver: !!monitor.isOver(),
+            canDrop: !!monitor.canDrop()
+          })
+        }),
+        [markedMoves]
+    )
+
     let backgroundColor = blackGrid;
     if (rowIndex % 2 === 0 && colIndex % 2 === 0) {
         backgroundColor = whiteGrid
@@ -30,6 +96,7 @@ const Cell = ({
         backgroundColor = whiteGrid
     }
     return <div
+        ref={drop}
         className='cell'
         style={{
             color: blackPieceColor,
@@ -54,15 +121,13 @@ const Cell = ({
             }
         }}
     >
-        {item !== null
-            ? <img className="no-border" src={toPieceImg(item)} alt="" />
-            : <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />}
+        <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} />
     </div>
 };
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
     const { chessboard, showTips, setShowTips } = useContext(BoardContext);
-    return <>
+    return <DndProvider backend={HTML5Backend}>
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,
         }}>
@@ -136,7 +201,7 @@ const ChessBoard = () => {
                 </label>
             </fieldset>
         </div>
-    </>
+    </DndProvider>
 };
 
 export default ChessBoard;
