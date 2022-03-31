@@ -24,7 +24,7 @@ const ChessManual = () => {
                     <tbody>
                         {history.map(([first, second], idx: number) => {
                             return <tr key={idx}>
-                                <td>{idx}</td>
+                                <td>{idx + 1}</td>
                                 <td>{first ? `${toPiece({ color: first.color, type: first.piece })} from ${first.from} to ${first.to}` : ``}</td>
                                 <td>{second ? `${toPiece({ color: second.color, type: second.piece })} from ${second.from} to ${second.to}` : ``}</td>
                                 <td>{first?.san} {second?.san}</td>
