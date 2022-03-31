@@ -1,4 +1,4 @@
-name: BuildAndPublish
+name: Main Branch CI
 on:
   push:
     branches: [ main ]

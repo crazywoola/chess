@@ -1,4 +1,4 @@
-name: BuildAndPublish
+name: Deploy To CF Workers
 on:
   push:
     branches: [ release ]
