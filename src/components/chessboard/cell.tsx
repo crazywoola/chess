@@ -118,13 +118,7 @@ const Cell = ({
             }
         }}
     >
-        {isOver && <>
-            {canDrop ? <>
-                <div className='overlay background-success' />
-            </> : <>
-             <div className='overlay background-danger' />
-            </>}
-        </>}
+        {isOver && <div className={`overlay ${canDrop ? 'background-success' : 'background-danger'}`} />}
         <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} key={item ? `${item.color}-${item.type}` : null} />
     </div>
 };
