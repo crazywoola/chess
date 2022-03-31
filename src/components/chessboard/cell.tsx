@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BoardContext } from 'src/context/board';
 import { ThemeContext } from 'src/context/theme';
 import { useDrop, useDrag } from 'react-dnd';
 import { DragDropType } from 'src/constant';
-import { getGridAxis, toPieceImg } from 'src/operations/index';
+import { getGridAxis } from 'src/operations/index';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 
 interface PieceProps {
     item: any;
@@ -12,7 +13,7 @@ interface PieceProps {
     gridAxis: string;
 }
 
-const Piece = ({
+export const Piece = ({
     colIndex,
     rowIndex,
     item,
@@ -20,7 +21,7 @@ const Piece = ({
 }: PieceProps) => {
     const { markedMoves, setStartPos } = useContext(BoardContext);
 
-    const [, drag] = useDrag(
+    const [, drag, preview] = useDrag(
         () => ({
             type: DragDropType,
             item() {
@@ -28,7 +29,11 @@ const Piece = ({
                 setStartPos(from)
 
                 return {
-                    id: item.type,
+                    id: `${item.color}-${item.type}`,
+                    item,
+                    colIndex,
+                    rowIndex,
+                    gridAxis,
                 }
             },
             collect: (monitor) => {
@@ -36,15 +41,21 @@ const Piece = ({
                     isDragging: !!monitor.isDragging(),
                 }
             },
+            end() {
+                setStartPos(undefined);
+            }
         }),
         [],
     )
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, []);
 
     if (!item) {
         return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;
     }
 
-    return <img className="no-border" src={toPieceImg(item)} alt="" ref={drag} />
+    return <div className={`piece-${item.color}-${item.type}`} ref={drag} />
 }
 
 const Cell = ({
@@ -56,7 +67,7 @@ const Cell = ({
     const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     const { startPos, setStartPos, chessboard, setPromotion, setMoves, markedMoves } = useContext(BoardContext);
 
-    const [, drop] = useDrop(
+    const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DragDropType,
             drop: () => {
@@ -107,7 +118,15 @@ const Cell = ({
             }
         }}
     >
-        <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} />
+        {isOver && !canDrop && (
+            <div className='overlay' style={{ backgroundColor: 'red' }} />
+        )}
+        {
+            isOver && canDrop && (
+                <div className='overlay' style={{ backgroundColor: 'green' }} />
+            )
+        }
+        <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} key={item ? `${item.color}-${item.type}` : null} />
     </div>
 };
 
