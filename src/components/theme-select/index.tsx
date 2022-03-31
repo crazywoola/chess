@@ -5,10 +5,14 @@ import './style.scss';
 const ThemeSelect = () => {
     const ctx = useContext(ThemeContext);
     const { selectTheme } = ctx;
-    return <div className='row'>
-        <div className="col">
-            <button className='btn-small' onClick={()=> selectTheme('default')}>Default Theme</button>
-            <button className='btn-small gap' onClick={()=> selectTheme('wooden')}>Wooden Theme</button>
+    return <div className='theme-select'>
+        <h4>Select Theme</h4>
+        <div className="row">
+        <button className='btn-small' onClick={()=> selectTheme('default')}>Default Theme</button>
+        </div>
+        <div className="row">
+            
+            <button className='btn-small' onClick={()=> selectTheme('wooden')}>Wooden Theme</button>
         </div>
     </div>
 };

@@ -48,7 +48,7 @@ const ActionSelect = () => {
         <FENModal />
         <h4>Select Action</h4>
         <div className="row">
-            <button className='btn-small' onClick={resetChessboard}>Reset Chessboard</button>
+            <button className='btn-small' onClick={resetChessboard}>Reset Game</button>
         </div>
         <div className="row">
             <button className='btn-small' onClick={() => { setShow(true) }}>Load FEN</button>
