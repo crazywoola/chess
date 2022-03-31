@@ -6,8 +6,8 @@ import { xAxis, yAxis } from 'src/constant';
 import PromotionModal from 'src/components/promotion-modal';
 import PGNModal from 'src/components/pgn-modal';
 import './style.scss';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import Cell from './cell';
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);

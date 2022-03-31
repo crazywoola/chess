@@ -21,8 +21,8 @@ const Piece = ({
     const { markedMoves, setStartPos } = useContext(BoardContext);
 
     const [, drag] = useDrag(
-		() => ({
-			type: DragDropType,
+        () => ({
+            type: DragDropType,
             item() {
                 const from = { row: rowIndex, col: colIndex }
                 setStartPos(from)
@@ -31,16 +31,15 @@ const Piece = ({
                     id: item.type,
                 }
             },
-			collect: (monitor) => {
+            collect: (monitor) => {
                 return {
                     isDragging: !!monitor.isDragging(),
                 }
             },
-		}),
-		[],
-	)
+        }),
+        [],
+    )
 
-    
     if (!item) {
         return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;
     }
@@ -59,18 +58,18 @@ const Cell = ({
 
     const [, drop] = useDrop(
         () => ({
-          accept: DragDropType,
-          drop: () => {
-            const from = getGridAxis(startPos as any)
-            const to = gridAxis
-            chessboard.move({ from, to })
-            setStartPos(undefined)
-          },
-          canDrop: () => markedMoves.includes(gridAxis),
-          collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-            canDrop: !!monitor.canDrop()
-          })
+            accept: DragDropType,
+            drop: () => {
+                const from = getGridAxis(startPos as any)
+                const to = gridAxis
+                chessboard.move({ from, to })
+                setStartPos(undefined)
+            },
+            canDrop: () => markedMoves.includes(gridAxis),
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver(),
+                canDrop: !!monitor.canDrop()
+            })
         }),
         [markedMoves]
     )
