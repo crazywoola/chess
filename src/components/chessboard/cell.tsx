@@ -28,7 +28,7 @@ const Piece = ({
                 setStartPos(from)
 
                 return {
-                    id: item.type,
+                    id: `${item.color}-${item.type}`,
                 }
             },
             collect: (monitor) => {
@@ -36,6 +36,9 @@ const Piece = ({
                     isDragging: !!monitor.isDragging(),
                 }
             },
+            end() {
+                setStartPos(undefined);
+            }
         }),
         [],
     )
@@ -44,7 +47,7 @@ const Piece = ({
         return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;
     }
 
-    return <img className="no-border" src={toPieceImg(item)} alt="" ref={drag} onDragStart={() => false} />
+    return <div className={`piece-${item.color}-${item.type}`} ref={drag} />
 }
 
 const Cell = ({
@@ -115,7 +118,7 @@ const Cell = ({
                 <div className='overlay' style={{ backgroundColor: 'green' }} />
             )
         }
-        <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} />
+        <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} key={item ? `${item.color}-${item.type}` : null} />
     </div>
 };
 
