@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BoardContext } from 'src/context/board';
 import { ThemeContext } from 'src/context/theme';
 import { useDrop, useDrag } from 'react-dnd';
 import { DragDropType } from 'src/constant';
-import { getGridAxis, toPieceImg } from 'src/operations/index';
+import { getGridAxis } from 'src/operations/index';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 
 interface PieceProps {
     item: any;
@@ -12,7 +13,7 @@ interface PieceProps {
     gridAxis: string;
 }
 
-const Piece = ({
+export const Piece = ({
     colIndex,
     rowIndex,
     item,
@@ -20,7 +21,7 @@ const Piece = ({
 }: PieceProps) => {
     const { markedMoves, setStartPos } = useContext(BoardContext);
 
-    const [, drag] = useDrag(
+    const [, drag, preview] = useDrag(
         () => ({
             type: DragDropType,
             item() {
@@ -29,6 +30,10 @@ const Piece = ({
 
                 return {
                     id: `${item.color}-${item.type}`,
+                    item,
+                    colIndex,
+                    rowIndex,
+                    gridAxis,
                 }
             },
             collect: (monitor) => {
@@ -42,6 +47,9 @@ const Piece = ({
         }),
         [],
     )
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, []);
 
     if (!item) {
         return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;

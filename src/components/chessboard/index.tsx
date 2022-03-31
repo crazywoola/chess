@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { ThemeContext } from 'src/context/theme';
 import { BoardContext } from 'src/context/board';
 import { getGridAxis } from 'src/operations/index';
@@ -8,14 +8,28 @@ import PGNModal from 'src/components/pgn-modal';
 import './style.scss';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import Cell from './cell';
+import Cell, { Piece } from './cell';
+import Preview from './preview';
+import { DragDropType } from 'src/constant';
+
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
     const { chessboard, showTips, setShowTips } = useContext(BoardContext);
+    const renderPreview = useCallback(({ item }: any) => {
+        return (
+            <div className={`piece-${item.color}-${item.type}`} style={{
+                width: gridSize,
+                height: gridSize
+            }} />
+        );
+    }, []);
     return <DndProvider backend={HTML5Backend}>
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,
         }}>
+            <Preview type={DragDropType} offset={gridSize / 2}>
+                {renderPreview}
+            </Preview>
             <PromotionModal />
             <PGNModal />
             <div
