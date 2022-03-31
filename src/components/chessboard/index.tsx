@@ -8,7 +8,7 @@ import PGNModal from 'src/components/pgn-modal';
 import './style.scss';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import Cell, { Piece } from './cell';
+import Cell from './cell';
 import Preview from './preview';
 import { DragDropType } from 'src/constant';
 
@@ -22,7 +22,7 @@ const ChessBoard = () => {
                 height: gridSize
             }} />
         );
-    }, []);
+    }, [gridSize]);
     return <DndProvider backend={HTML5Backend}>
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,

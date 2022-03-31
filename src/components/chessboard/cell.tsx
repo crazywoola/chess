@@ -49,7 +49,7 @@ export const Piece = ({
     )
     useEffect(() => {
         preview(getEmptyImage(), { captureDraggingState: true });
-    }, []);
+    }, [preview]);
 
     if (!item) {
         return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;
@@ -118,14 +118,13 @@ const Cell = ({
             }
         }}
     >
-        {isOver && !canDrop && (
-            <div className='overlay' style={{ backgroundColor: 'red' }} />
-        )}
-        {
-            isOver && canDrop && (
-                <div className='overlay' style={{ backgroundColor: 'green' }} />
-            )
-        }
+        {isOver && <>
+            {canDrop ? <>
+                <div className='overlay background-success' />
+            </> : <>
+             <div className='overlay background-danger' />
+            </>}
+        </>}
         <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} key={item ? `${item.color}-${item.type}` : null} />
     </div>
 };
