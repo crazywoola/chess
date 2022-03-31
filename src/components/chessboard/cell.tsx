@@ -44,7 +44,7 @@ const Piece = ({
         return <span className={markedMoves.includes(gridAxis) ? 'mark' : ''} />;
     }
 
-    return <img className="no-border" src={toPieceImg(item)} alt="" ref={drag} />
+    return <img className="no-border" src={toPieceImg(item)} alt="" ref={drag} onDragStart={() => false} />
 }
 
 const Cell = ({
@@ -56,7 +56,7 @@ const Cell = ({
     const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
     const { startPos, setStartPos, chessboard, setPromotion, setMoves, markedMoves } = useContext(BoardContext);
 
-    const [, drop] = useDrop(
+    const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DragDropType,
             drop: () => {
@@ -107,6 +107,14 @@ const Cell = ({
             }
         }}
     >
+        {isOver && !canDrop && (
+            <div className='overlay' style={{ backgroundColor: 'red' }} />
+        )}
+        {
+            isOver && canDrop && (
+                <div className='overlay' style={{ backgroundColor: 'green' }} />
+            )
+        }
         <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} />
     </div>
 };
