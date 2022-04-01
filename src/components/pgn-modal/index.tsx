@@ -12,11 +12,14 @@ const PGNModal = () => {
         size='sm'
         operations={resetChessboard}
         children={
+            <>
+                <h5>Game Over!</h5>
             <pre>
                 <code>
                     {chessboard.pgn()}
                 </code>
             </pre>
+            </>
         }
     />
 }

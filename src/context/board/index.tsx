@@ -1,5 +1,4 @@
-import React, { FC, createContext, useState, useEffect, useContext } from 'react';
-import { AlertContext } from 'src/context/alert/index';
+import React, { FC, createContext, useState, useEffect } from 'react';
 import Chess from 'chess.js';
 import { getGridAxis } from 'src/operations';
 interface CellProps {
@@ -31,14 +30,12 @@ const BoardContenxtProvider: FC = ({ children }) => {
     const [showTips, setShowTips] = useState(true);
     const [markedMoves, setMarkedMoves] = useState<string[]>([]);
     const [isGameOver, setIsGameOver] = useState(false);
-    const { toast, clear } = useContext(AlertContext);
 
     const cleanup = () => {
         setStartPos(undefined);
         setMoves([]);
         setPromotion(false);
         setIsGameOver(false);
-        clear(); // clear notice
     }
 
     useEffect(() => {
@@ -52,11 +49,9 @@ const BoardContenxtProvider: FC = ({ children }) => {
 
     useEffect(() => {
         if (chessboard.game_over()) {
-            toast('Game Over!')
             setIsGameOver(true);
         }
-
-    }, [chessboard, startPos, toast])
+    }, [chessboard, startPos])
     return <BoardContext.Provider
         value={{
             chessboard,
