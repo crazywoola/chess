@@ -22,10 +22,10 @@ function App() {
                     </div>
                     <Alert />
                     <div className="row flex-spaces tabs">
-                        <input id="chessboard" type="radio" name="tabs" checked={tab === 0} />
-                        <label htmlFor="chessboard" onClick={() => setTab(0)}>Chessboard</label>
-                        <input id="manual" type="radio" name="tabs" checked={tab === 1} />
-                        <label htmlFor="manual" onClick={() => setTab(1)}>Manual</label>
+                        <input id="chessboard" type="radio" name="tabs" checked={tab === 0} onChange={() => setTab(0)}/>
+                        <label htmlFor="chessboard" >Chessboard</label>
+                        <input id="manual" type="radio" name="tabs" checked={tab === 1} onChange={() => setTab(1)} />
+                        <label htmlFor="manual" >Manual</label>
                     </div>
                     {tab === 0 ? <>
                         <div className="content">
