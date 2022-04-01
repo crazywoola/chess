@@ -118,7 +118,21 @@ const Cell = ({
             }
         }}
     >
-        {isOver && <div className={`overlay ${canDrop ? 'background-success' : 'background-danger'}`} />}
+        {
+            isOver && canDrop && (
+                <div className={`overlay background-success`} />
+            )
+        }
+        {
+            isOver && !canDrop && (
+                <div className={`overlay background-danger`} />
+            )
+        }
+        {
+            !isOver && canDrop && (
+                <div className={`overlay background-warning`} />
+            )
+        }
         <Piece item={item} gridAxis={gridAxis} rowIndex={rowIndex} colIndex={colIndex} key={item ? `${item.color}-${item.type}` : null} />
     </div>
 };

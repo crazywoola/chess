@@ -23,7 +23,7 @@ function getItemStyles(
     }
     const { x, y } = currentOffset;
 
-    const transform = `translate(${x - offset}px, ${y - offset}px)`;
+    const transform = `translate(${x - offset / 2}px, ${y - offset}px)`;
     return {
         transform,
         WebkitTransform: transform,

@@ -18,8 +18,8 @@ const ChessBoard = () => {
     const renderPreview = useCallback(({ item }: any) => {
         return (
             <div className={`piece-${item.color}-${item.type}`} style={{
-                width: gridSize,
-                height: gridSize
+                width: gridSize * 2,
+                height: gridSize * 2
             }} />
         );
     }, [gridSize]);
@@ -27,7 +27,7 @@ const ChessBoard = () => {
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,
         }}>
-            <Preview type={DragDropType} offset={gridSize / 2}>
+            <Preview type={DragDropType} offset={gridSize * 2}>
                 {renderPreview}
             </Preview>
             <PromotionModal />

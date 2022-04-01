@@ -86,10 +86,12 @@
 @each $k, $v in (b: bishop, k: king, n: knight, p: pawn, r: rock, q: queen) {
     @each $ck, $cv in (w: white, b: black) {
         .piece-#{$ck}-#{$k} {
+            position: relative;
             width: 100%;
             height: 100%;
             background: url('../../assets/#{$cv}-#{$v}.png') center center no-repeat;
             background-size: cover;
+            z-index: 1;
         }
     }
 }
