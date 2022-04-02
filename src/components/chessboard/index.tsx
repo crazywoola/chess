@@ -33,12 +33,21 @@ const ChessBoard = () => {
     }, [gridSize]);
     useEffect(() => {
         // api play white
-        // ai play black
-        if(ai.value && turn === 'b') {
+        if(ai.value && ai.turn === 'w' && turn === 'w') {
             // use AI
             const fen = chessboard.fen();
             const stupidMove = stupidVersion(fen);
-            console.log(fen);
+            console.log(stupidMove);
+            setTimeout(() => {
+                chessboard.move(stupidMove);
+                setTurn(chessboard.turn());
+            }, 1000);
+        }
+        // ai play black
+        if(ai.value && ai.turn === 'b' && turn === 'b') {
+            // use AI
+            const fen = chessboard.fen();
+            const stupidMove = stupidVersion(fen);
             console.log(stupidMove);
             setTimeout(() => {
                 chessboard.move(stupidMove);
