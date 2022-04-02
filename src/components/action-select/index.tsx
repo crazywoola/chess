@@ -3,7 +3,7 @@ import { BoardContext } from 'src/context/board';
 import './style.scss';
 
 const ActionSelect = () => {
-    const { chessboard, resetChessboard, loadFEN, toggleAI, isAI, setAILevel } = useContext(BoardContext);
+    const { chessboard, resetChessboard, loadFEN, ai, aiFns } = useContext(BoardContext);
 
     const [show, setShow] = useState(false)
     const resetConds = () => {
@@ -46,12 +46,14 @@ const ActionSelect = () => {
 
     return <div className='action-select'>
         <FENModal />
-        <h4>AI?</h4>
+        <h4>AI? {ai.value ? 'ON' : 'OFF'}</h4>
+        <h5>AI Play {ai.turn === 'w' ? 'White' : 'Black'}</h5>
         <div className="row">
-            <button className='btn-small ' onClick={toggleAI}>AI {isAI.value ? 'ON' : 'OFF'}</button>
-
+            <button className='btn-small ' onClick={aiFns.playWhite}>AI Play White</button>
+            <button className='btn-small ' onClick={aiFns.playBlack}>AI Play Black</button>
+            <button className='btn-small ' onClick={aiFns.human}>Human</button>
         </div>
-        <h4>Level: {isAI.level}</h4>
+        {/* <h4>Level: {isAI.level}</h4>
         <div className="row">
             <button className='btn-small btn-mute' onClick={() => { setAILevel(0) }}>Level 0</button>
             <button className='btn-small btn-primary' onClick={() => { setAILevel(1) }}>Level 1</button>
@@ -59,7 +61,7 @@ const ActionSelect = () => {
             <button className='btn-small btn-success' onClick={() => { setAILevel(3) }}>Level 3</button>
             <button className='btn-small btn-warning' onClick={() => { setAILevel(4) }}>Level 4</button>
             <button className='btn-small btn-danger' onClick={() => { setAILevel(5) }}>Level 5</button>
-        </div>
+        </div> */}
 
         <h4>Select Action</h4>
         <div className="row">

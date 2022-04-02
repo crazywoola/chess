@@ -21,7 +21,7 @@ const ChessBoard = () => {
         setShowTips,
         turn,
         setTurn,
-        isAI,
+        ai,
     } = useContext(BoardContext);
     const renderPreview = useCallback(({ item }: any) => {
         return (
@@ -32,8 +32,9 @@ const ChessBoard = () => {
         );
     }, [gridSize]);
     useEffect(() => {
-        // play black
-        if(isAI.value && turn === 'b') {
+        // api play white
+        // ai play black
+        if(ai.value && turn === 'b') {
             // use AI
             const fen = chessboard.fen();
             const stupidMove = stupidVersion(fen);
@@ -44,7 +45,7 @@ const ChessBoard = () => {
                 setTurn(chessboard.turn());
             }, 1000);
         }
-    }, [turn, isAI, chessboard, setTurn]);
+    }, [turn, chessboard, setTurn, ai]);
     return <DndProvider backend={HTML5Backend}>
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,

@@ -1,15 +1,14 @@
 import React, { FC, createContext, useState, useEffect } from 'react';
 import Chess from 'chess.js';
 import { getGridAxis } from 'src/operations';
+import useAI, { HAIProps, IAIProps } from 'src/hooks/use-ai';
 interface CellProps {
     col: number;
     row: number;
 }
 interface BoardContextProps {
-    isAI: {
-        value: boolean;
-        level: number;
-    };
+    ai: IAIProps,
+    aiFns: HAIProps,
     chessboard: any;
     turn: string;
     startPos: CellProps | undefined;
@@ -24,8 +23,6 @@ interface BoardContextProps {
     setStartPos: React.Dispatch<React.SetStateAction<CellProps | undefined>>;
     resetChessboard: () => void;
     loadFEN: (fen: string) => void;
-    toggleAI: () => void;
-    setAILevel: (level: number) => void;
     setTurn: React.Dispatch<React.SetStateAction<string>>;
 }
 export const BoardContext = createContext<BoardContextProps>({} as BoardContextProps);
@@ -40,9 +37,10 @@ const BoardContenxtProvider: FC = ({ children }) => {
     const [isGameOver, setIsGameOver] = useState(false);
     const [turn, setTurn] = useState('w');
     // AI
-    const [isAI, setToAI] = useState({
+    const [ai, aiFns] = useAI({
         value: false,
         level: 0,
+        turn: 'b'
     });
 
     const cleanup = () => {
@@ -68,7 +66,8 @@ const BoardContenxtProvider: FC = ({ children }) => {
     }, [chessboard, startPos])
     return <BoardContext.Provider
         value={{
-            isAI,
+            ai,
+            aiFns,
             chessboard,
             startPos,
             promotion,
@@ -91,18 +90,6 @@ const BoardContenxtProvider: FC = ({ children }) => {
                 const newBoard = new Chess(fen);
                 cleanup();
                 setChessboard(newBoard)
-            },
-            toggleAI: () => {
-                setToAI({
-                    value: !isAI.value,
-                    level: isAI.level,
-                })
-            },
-            setAILevel: (level: number) => {
-                setToAI({
-                    value: isAI.value,
-                    level,
-                })
             },
         }}
     >
