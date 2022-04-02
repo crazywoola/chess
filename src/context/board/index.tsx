@@ -6,7 +6,12 @@ interface CellProps {
     row: number;
 }
 interface BoardContextProps {
+    isAI: {
+        value: boolean;
+        level: number;
+    };
     chessboard: any;
+    turn: string;
     startPos: CellProps | undefined;
     promotion: boolean;
     moves: string[];
@@ -19,6 +24,9 @@ interface BoardContextProps {
     setStartPos: React.Dispatch<React.SetStateAction<CellProps | undefined>>;
     resetChessboard: () => void;
     loadFEN: (fen: string) => void;
+    toggleAI: () => void;
+    setAILevel: (level: number) => void;
+    setTurn: React.Dispatch<React.SetStateAction<string>>;
 }
 export const BoardContext = createContext<BoardContextProps>({} as BoardContextProps);
 
@@ -30,6 +38,12 @@ const BoardContenxtProvider: FC = ({ children }) => {
     const [showTips, setShowTips] = useState(true);
     const [markedMoves, setMarkedMoves] = useState<string[]>([]);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [turn, setTurn] = useState('w');
+    // AI
+    const [isAI, setToAI] = useState({
+        value: false,
+        level: 0,
+    });
 
     const cleanup = () => {
         setStartPos(undefined);
@@ -54,6 +68,7 @@ const BoardContenxtProvider: FC = ({ children }) => {
     }, [chessboard, startPos])
     return <BoardContext.Provider
         value={{
+            isAI,
             chessboard,
             startPos,
             promotion,
@@ -65,6 +80,8 @@ const BoardContenxtProvider: FC = ({ children }) => {
             showTips,
             setShowTips,
             markedMoves,
+            turn,
+            setTurn,
             resetChessboard: () => {
                 const newBoard = new Chess();
                 cleanup();
@@ -74,7 +91,19 @@ const BoardContenxtProvider: FC = ({ children }) => {
                 const newBoard = new Chess(fen);
                 cleanup();
                 setChessboard(newBoard)
-            }
+            },
+            toggleAI: () => {
+                setToAI({
+                    value: !isAI.value,
+                    level: isAI.level,
+                })
+            },
+            setAILevel: (level: number) => {
+                setToAI({
+                    value: isAI.value,
+                    level,
+                })
+            },
         }}
     >
         {children}

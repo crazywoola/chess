@@ -3,7 +3,7 @@ import { BoardContext } from 'src/context/board';
 import './style.scss';
 
 const ActionSelect = () => {
-    const { chessboard, resetChessboard, loadFEN } = useContext(BoardContext);
+    const { chessboard, resetChessboard, loadFEN, toggleAI, isAI, setAILevel } = useContext(BoardContext);
 
     const [show, setShow] = useState(false)
     const resetConds = () => {
@@ -33,7 +33,7 @@ const ActionSelect = () => {
                         </div>
                         <button className='btn-small btn-primary btn-block' onClick={() => {
                             const validation = chessboard.validate_fen(fen);
-                            if(validation.valid) {
+                            if (validation.valid) {
                                 loadFEN(fen);
                             }
                         }}>Ok!</button>
@@ -46,6 +46,21 @@ const ActionSelect = () => {
 
     return <div className='action-select'>
         <FENModal />
+        <h4>AI?</h4>
+        <div className="row">
+            <button className='btn-small ' onClick={toggleAI}>AI {isAI.value ? 'ON' : 'OFF'}</button>
+
+        </div>
+        <h4>Level: {isAI.level}</h4>
+        <div className="row">
+            <button className='btn-small btn-mute' onClick={() => { setAILevel(0) }}>Level 0</button>
+            <button className='btn-small btn-primary' onClick={() => { setAILevel(1) }}>Level 1</button>
+            <button className='btn-small btn-secondary' onClick={() => { setAILevel(2) }}>Level 2</button>
+            <button className='btn-small btn-success' onClick={() => { setAILevel(3) }}>Level 3</button>
+            <button className='btn-small btn-warning' onClick={() => { setAILevel(4) }}>Level 4</button>
+            <button className='btn-small btn-danger' onClick={() => { setAILevel(5) }}>Level 5</button>
+        </div>
+
         <h4>Select Action</h4>
         <div className="row">
             <button className='btn-small' onClick={resetChessboard}>Reset Game</button>
@@ -53,6 +68,8 @@ const ActionSelect = () => {
         <div className="row">
             <button className='btn-small' onClick={() => { setShow(true) }}>Load FEN</button>
         </div>
+
+
     </div>
 };
 

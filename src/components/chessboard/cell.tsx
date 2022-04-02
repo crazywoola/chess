@@ -65,16 +65,29 @@ const Cell = ({
     gridAxis,
 }: PieceProps) => {
     const { theme: { blackPieceColor, blackGrid, whiteGrid, fontSize } } = useContext(ThemeContext);
-    const { startPos, setStartPos, chessboard, setPromotion, setMoves, markedMoves } = useContext(BoardContext);
+    const {
+        startPos,
+        setStartPos,
+        chessboard,
+        setPromotion,
+        setMoves,
+        markedMoves,
+        setTurn,
+    } = useContext(BoardContext);
+
+    const playerMove = () => {
+        const from = getGridAxis(startPos as any);
+        const to = gridAxis;
+        chessboard.move({ from, to });
+        setStartPos(undefined);
+        setTurn(chessboard.turn());
+    }
 
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DragDropType,
             drop: () => {
-                const from = getGridAxis(startPos as any)
-                const to = gridAxis
-                chessboard.move({ from, to })
-                setStartPos(undefined)
+                playerMove();
             },
             canDrop: () => markedMoves.includes(gridAxis),
             collect: (monitor) => ({
@@ -111,10 +124,7 @@ const Cell = ({
                     setMoves(promotionMoves);
                 }
             } else {
-                const from = getGridAxis(startPos)
-                const to = gridAxis
-                chessboard.move({ from, to })
-                setStartPos(undefined)
+                playerMove();
             }
         }}
     >

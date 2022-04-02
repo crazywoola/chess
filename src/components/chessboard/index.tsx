@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useCallback, useEffect } from 'react';
 import { ThemeContext } from 'src/context/theme';
 import { BoardContext } from 'src/context/board';
 import { getGridAxis } from 'src/operations/index';
@@ -11,10 +11,18 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import Cell from './cell';
 import Preview from './preview';
 import { DragDropType } from 'src/constant';
+import { stupidVersion } from 'src/operations/ai';
 
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
-    const { chessboard, showTips, setShowTips } = useContext(BoardContext);
+    const { 
+        chessboard, 
+        showTips, 
+        setShowTips,
+        turn,
+        setTurn,
+        isAI,
+    } = useContext(BoardContext);
     const renderPreview = useCallback(({ item }: any) => {
         return (
             <div className={`piece-${item.color}-${item.type}`} style={{
@@ -23,6 +31,20 @@ const ChessBoard = () => {
             }} />
         );
     }, [gridSize]);
+    useEffect(() => {
+        // play black
+        if(isAI.value && turn === 'b') {
+            // use AI
+            const fen = chessboard.fen();
+            const stupidMove = stupidVersion(fen);
+            console.log(fen);
+            console.log(stupidMove);
+            setTimeout(() => {
+                chessboard.move(stupidMove);
+                setTurn(chessboard.turn());
+            }, 1000);
+        }
+    }, [turn, isAI, chessboard, setTurn]);
     return <DndProvider backend={HTML5Backend}>
         <div className="board-container" style={{
             border: `1px solid ${borderColor}`,
