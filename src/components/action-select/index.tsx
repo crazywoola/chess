@@ -67,7 +67,6 @@ const ActionSelect = () => {
         <div className="row">
             <button className='btn-small' onClick={() => {
                 aiFns.playBlack();
-                aiFns.human();
                 resetChessboard();
             }}>Reset Game</button>
         </div>
