@@ -1,5 +1,5 @@
 import MinmaxNode from './minmax';
-import ABPruningNode from './alphabeta';
+import ABNode from './alphabeta';
 import NegamaxNode from './negamax';
 import {
     Chess
@@ -11,7 +11,8 @@ test('minmax', () => {
 })
 
 test('minmax with pruning', () => {
-    const node = new ABPruningNode(3, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1', -Infinity, Infinity, true);
+    const board = new Chess('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1');
+    const node = new ABNode(3, board, -Infinity, Infinity, true);
     node.minmaxab();
     console.log(node.chosenMove);
 })

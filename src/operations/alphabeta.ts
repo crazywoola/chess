@@ -1,7 +1,7 @@
 
 import MinmaxNode from './minmax';
 import { PLAY_BLACK_SCORE, PLAY_WHITE_SCORE } from './constant';
-export default class ABPruningNode extends MinmaxNode {
+export class ABPruningNode extends MinmaxNode {
     alpha: number;
     beta: number;
     chosenMove: string;
@@ -55,7 +55,7 @@ export default class ABPruningNode extends MinmaxNode {
         }
     }
 }
-export class ABNode {
+export default class ABNode {
     targetDepth: number;
     board: any;
     alpha: number;
