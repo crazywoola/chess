@@ -1,39 +1,37 @@
 
 import MinmaxNode from './minmax';
 import { PLAY_BLACK_SCORE, PLAY_WHITE_SCORE } from './constant';
-export class ABPruningNode extends MinmaxNode {
+export default class ABPruningNode extends MinmaxNode {
     alpha: number;
     beta: number;
     chosenMove: string;
     constructor(
         targetDepth: number,
-        depth: number,
         fen: string,
-        type: string,
         alpha: number,
-        beta: number) {
-        super(targetDepth, depth, fen, type);
+        beta: number,
+        isMax: boolean
+    ) {
+        super(targetDepth, fen, isMax);
         this.alpha = alpha || -Infinity;
         this.beta = beta || Infinity;
         this.chosenMove = '';
     }
 
-
     minmaxab() {
-        if (this.depth >= this.targetDepth) {
+        if (this.targetDepth === 0) {
             return this.evaluate(this.fen);
         }
-        if (this.type === 'max') {
+        if (this.isMax) {
             // max node edit alpha
             for (let i = 0; i < this.leafNodes().length; i++) {
                 const [childFen, move] = this.leafNodes()[i];
-                const child = new ABPruningNode(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type), this.alpha, this.beta);
+                const child = new ABPruningNode(this.targetDepth - 1, childFen, this.alpha, this.beta, !this.isMax);
                 const childValue = child.minmaxab();
                 if (childValue > this.alpha) {
                     this.chosenMove = move;
                     this.alpha = childValue;
                 }
-                // this.alpha = Math.max(this.alpha, value);
                 if (this.alpha >= this.beta) {
                     break;
                 }
@@ -43,13 +41,12 @@ export class ABPruningNode extends MinmaxNode {
             // min node edit beta
             for (let i = 0; i < this.leafNodes().length; i++) {
                 const [childFen, move] = this.leafNodes()[i];
-                const child = new ABPruningNode(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type), this.alpha, this.beta);
+                const child = new ABPruningNode(this.targetDepth - 1, childFen, this.alpha, this.beta, this.isMax);
                 const childValue = child.minmaxab();
                 if (childValue < this.beta) {
                     this.chosenMove = move;
                     this.beta = childValue;
                 }
-                // this.beta = Math.min(this.beta, value);
                 if (this.alpha >= this.beta) {
                     break;
                 }
@@ -58,7 +55,7 @@ export class ABPruningNode extends MinmaxNode {
         }
     }
 }
-export default class ABNode {
+export class ABNode {
     targetDepth: number;
     board: any;
     alpha: number;

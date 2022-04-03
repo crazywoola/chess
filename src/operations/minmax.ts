@@ -5,15 +5,13 @@ import shuffle from 'lodash/shuffle';
 
 export default class MinmaxNode {
     targetDepth: number;
-    depth: number;
     fen: string;
-    type: string; // min max
+    isMax: boolean; // min max
 
-    constructor(targetDepth: number, depth: number, fen: string, type: string) {
+    constructor(targetDepth: number, fen: string, isMax: boolean) {
         this.targetDepth = targetDepth;
-        this.depth = depth;
         this.fen = fen;
-        this.type = type;
+        this.isMax = isMax;
     }
 
     leafNodes() {
@@ -43,40 +41,33 @@ export default class MinmaxNode {
         });
         return score;
     }
-    switchType = (type: string) => {
-        if (type === 'min') {
-            return 'max';
-        }
-        if (type === 'max') {
-            return 'min';
-        }
-    }
+
     minmax() {
-        if (this.depth >= this.targetDepth) {
+        if (this.targetDepth === 0) {
             return this.evaluate(this.fen);
         }
-        if (this.type === 'max') {
+        if (this.isMax) {
             // max node edit alpha
             let max = -Infinity;
             for (let i = 0; i < this.leafNodes().length; i++) {
                 const [childFen] = this.leafNodes()[i];
-                const child = new MinmaxNode(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type));
+                const child = new MinmaxNode(this.targetDepth -1, childFen, !this.isMax);
                 const value = child.minmax();
                 max = Math.max(value, max);
             }
             return max;
-        }
-        if (this.type === 'min') {
+        } else {
             // min node edit beta
             let min = Infinity;
             for (let i = 0; i < this.leafNodes().length; i++) {
                 const [childFen] = this.leafNodes()[i];
-                const child = new MinmaxNode(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type));
+                const child = new MinmaxNode(this.targetDepth - 1, childFen, this.isMax);
                 const value = child.minmax();
                 min = Math.min(value, min);
             }
             return min;
         }
+
     }
 
 }
