@@ -1,5 +1,6 @@
 
 import MinmaxNode from './minmax';
+import shuffle from 'lodash/shuffle';
 import {
     bishop_value,
     black_bishop,
@@ -97,9 +98,9 @@ export default class ABNode {
         this.chosenMove = '';
     }
     evaluate() {
-        if (this.board.in_checkmate()) { return this.board.turn() === 'w' ? Infinity : -Infinity }
+        if (this.board.in_checkmate()) { return this.isMax ? Infinity : -Infinity }
         if (this.board.in_threefold_repetition() || this.board.in_stalemate() || this.board.in_draw()) {
-            return this.board.turn() === 'w' ? Infinity : -Infinity
+            return this.isMax ? Infinity : -Infinity
         }
 
         let total = 0
@@ -131,7 +132,7 @@ export default class ABNode {
             return this.evaluate();
         }
         if (this.isMax) {
-            this.board.moves().forEach(move => {
+            shuffle(this.board.moves()).forEach(move => {
                 this.board.move(move);
                 const child = new ABNode(this.targetDepth - 1, this.board, this.alpha, this.beta, !this.isMax);
                 const value = Math.max(this.alpha, child.minmaxab());
@@ -145,7 +146,7 @@ export default class ABNode {
             });
 
         } else {
-            this.board.moves().forEach(move => {
+            shuffle(this.board.moves()).forEach(move => {
                 this.board.move(move);
                 const child = new ABNode(this.targetDepth - 1, this.board, this.alpha, this.beta, this.isMax);
                 const value = Math.min(this.beta, child.minmaxab());

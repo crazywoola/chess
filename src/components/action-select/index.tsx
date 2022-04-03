@@ -66,7 +66,6 @@ const ActionSelect = () => {
         <h4>Select Action</h4>
         <div className="row">
             <button className='btn-small' onClick={() => {
-                aiFns.playBlack();
                 resetChessboard();
             }}>Reset Game</button>
         </div>

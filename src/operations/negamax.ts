@@ -1,4 +1,5 @@
 import { bishop_value, black_bishop, black_king, black_knight, black_pawn, black_queen, black_rook, king_value, knight_value, pawn_value, queen_value, rook_value, white_bishop, white_king, white_knight, white_pawn, white_queen, white_rook } from './constant';
+import shuffle from 'lodash/shuffle';
 export default class NegamaxNode {
     targetDepth: number;
     board: any;
@@ -21,11 +22,10 @@ export default class NegamaxNode {
         this.chosenMove = '';
     }
     evaluate() {
-        if (this.board.in_checkmate()) { return this.board.turn() === 'w' ? Infinity : -Infinity }
+        if (this.board.in_checkmate()) { return this.isMax ? Infinity : -Infinity }
         if (this.board.in_threefold_repetition() || this.board.in_stalemate() || this.board.in_draw()) {
-            return this.board.turn() === 'w' ? Infinity : -Infinity
+            return this.isMax ? Infinity : -Infinity
         }
-
         let total = 0
 
         // loop through the board
@@ -55,7 +55,7 @@ export default class NegamaxNode {
         if (this.targetDepth === 0) {
             return this.evaluate();
         }
-        this.board.moves().forEach(move => {
+        shuffle(this.board.moves()).forEach(move => {
             this.board.move(move);
             const child = new NegamaxNode(this.targetDepth - 1, this.board, -this.beta, -this.alpha, !this.isMax);
             const value = -child.negamax()
