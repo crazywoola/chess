@@ -1,7 +1,7 @@
 
 import MinmaxNode from './minmax';
 import { PLAY_BLACK_SCORE, PLAY_WHITE_SCORE } from './constant';
-export default class ABPruningNode extends MinmaxNode {
+export class ABPruningNode extends MinmaxNode {
     alpha: number;
     beta: number;
     chosenMove: string;
@@ -58,7 +58,7 @@ export default class ABPruningNode extends MinmaxNode {
         }
     }
 }
-export class ABNode {
+export default class ABNode {
     targetDepth: number;
     board: any;
     alpha: number;
@@ -96,7 +96,7 @@ export class ABNode {
         });
         return score;
     }
-    minimaxab() {
+    minmaxab() {
         if (this.targetDepth === 0) {
             return this.evaluate();
         }
@@ -104,11 +104,10 @@ export class ABNode {
             this.board.moves().forEach(move => {
                 this.board.move(move);
                 const child = new ABNode(this.targetDepth - 1, this.board, this.alpha, this.beta, !this.isMax);
-                const value = Math.max(this.alpha, child.minimaxab());
+                const value = Math.max(this.alpha, child.minmaxab());
                 this.board.undo();
-                this.alpha = Math.max(this.alpha, value)
+                this.alpha = value
                 if (this.beta <= this.alpha) {
-                    
                     return this.alpha
                 }
                 this.chosenMove = move;
@@ -119,7 +118,7 @@ export class ABNode {
             this.board.moves().forEach(move => {
                 this.board.move(move);
                 const child = new ABNode(this.targetDepth - 1, this.board, this.alpha, this.beta, this.isMax);
-                const value = Math.min(this.beta, child.minimaxab());
+                const value = Math.min(this.beta, child.minmaxab());
                 this.board.undo();
                 this.beta = Math.min(this.beta, value)
                 if (this.beta <= this.alpha) {
