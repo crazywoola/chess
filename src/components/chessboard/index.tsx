@@ -11,7 +11,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import Cell from './cell';
 import Preview from './preview';
 import { DragDropType } from 'src/constant';
-import ABNode from 'src/operations/alphabeta';
+import Negamax from 'src/operations/negamax';
 
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
@@ -35,7 +35,7 @@ const ChessBoard = () => {
         // api play white
         if(ai.value && ai.turn === 'w' && turn === 'w') {
             // use AI
-            const AI = new ABNode(3, chessboard, -Infinity, Infinity, true);
+            const AI = new Negamax(3, chessboard, -Infinity, Infinity);
             AI.minmaxab();
             chessboard.move(AI.chosenMove);
             setTurn(chessboard.turn());
@@ -43,7 +43,7 @@ const ChessBoard = () => {
         // ai play black
         if(ai.value && ai.turn === 'b' && turn === 'b') {
             // use AI
-            const AI = new ABNode(3, chessboard, -Infinity, Infinity, true);
+            const AI = new Negamax(3, chessboard, -Infinity, Infinity);
             AI.minmaxab();
             chessboard.move(AI.chosenMove);
             setTurn(chessboard.turn());

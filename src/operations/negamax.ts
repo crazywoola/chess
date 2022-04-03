@@ -5,26 +5,23 @@ export default class NegamaxNode {
     board: any;
     alpha: number;
     beta: number;
-    isMax: boolean;
     chosenMove: string;
     constructor(
         targetDepth: number,
         board: any,
         alpha: number,
         beta: number,
-        isMax: boolean,
     ) {
         this.targetDepth = targetDepth
         this.alpha = alpha || -Infinity;
         this.beta = beta || Infinity;
-        this.isMax = isMax;
         this.board = board;
         this.chosenMove = '';
     }
     evaluate() {
-        if (this.board.in_checkmate()) { return this.isMax ? Infinity : -Infinity }
+        if (this.board.in_checkmate()) { return this.board.turn() === 'w' ? Infinity : -Infinity }
         if (this.board.in_threefold_repetition() || this.board.in_stalemate() || this.board.in_draw()) {
-            return this.isMax ? Infinity : -Infinity
+            return this.board.turn() === 'w' ? Infinity : -Infinity
         }
         let total = 0
 
@@ -57,14 +54,14 @@ export default class NegamaxNode {
         }
         shuffle(this.board.moves()).forEach(move => {
             this.board.move(move);
-            const child = new NegamaxNode(this.targetDepth - 1, this.board, -this.beta, -this.alpha, !this.isMax);
-            const value = -child.negamax()
+            const child = new NegamaxNode(this.targetDepth - 1, this.board, -this.beta, -this.alpha);
+            const score = -child.negamax()
             this.board.undo();
-            this.alpha = Math.max(this.alpha, value);
-            if (this.alpha >= this.beta) {
-                return;
+            if (score >= this.beta) { return score } // beta cutoff
+            if (score > this.alpha) {
+                this.alpha = score;
+                this.chosenMove = move;
             }
-            this.chosenMove = move;
         })
         return this.alpha
     }

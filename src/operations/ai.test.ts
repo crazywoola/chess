@@ -19,7 +19,7 @@ test('minmax with pruning', () => {
 
 test('negamax with pruning', () => {
     const board = new Chess('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1');
-    const node = new NegamaxNode(3, board, -Infinity, Infinity, true);
+    const node = new NegamaxNode(3, board, -Infinity, Infinity);
     node.negamax();
     console.log(node.chosenMove);
 })
