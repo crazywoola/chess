@@ -1,6 +1,25 @@
 
 import MinmaxNode from './minmax';
-import { PLAY_BLACK_SCORE, PLAY_WHITE_SCORE } from './constant';
+import {
+    bishop_value,
+    black_bishop,
+    black_king,
+    black_knight,
+    black_pawn,
+    black_queen,
+    black_rook,
+    king_value,
+    knight_value,
+    pawn_value,
+    queen_value,
+    rook_value,
+    white_bishop,
+    white_king,
+    white_knight,
+    white_pawn,
+    white_queen,
+    white_rook
+} from './constant';
 export class ABPruningNode extends MinmaxNode {
     alpha: number;
     beta: number;
@@ -78,20 +97,34 @@ export default class ABNode {
         this.chosenMove = '';
     }
     evaluate() {
+        if (this.board.in_checkmate()) { return this.board.turn() === 'w' ? Infinity : -Infinity }
+        if (this.board.in_threefold_repetition() || this.board.in_stalemate() || this.board.in_draw()) {
+            return this.board.turn() === 'w' ? Infinity : -Infinity
+        }
 
-        let score = 0;
-        this.board.board().forEach((row: any[]) => {
-            row.forEach((piece: any) => {
-                if (piece) {
-                    if (piece.color === 'w') {
-                        score += PLAY_WHITE_SCORE[piece.type.toUpperCase()];
-                    } else {
-                        score += PLAY_BLACK_SCORE[piece.type];
-                    }
+        let total = 0
+
+        // loop through the board
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                // get every piece
+                const piece = this.board.get(String.fromCharCode(97 + i) + (j + 1))
+                if (!piece) { continue }
+
+
+                let index = j * 8 + i
+                switch (piece.type) {
+                    case 'p': total += (piece.color === 'w' ? pawn_value + white_pawn[index] : - (pawn_value + black_pawn[index])); break
+                    case 'n': total += (piece.color === 'w' ? knight_value + white_knight[index] : - (knight_value + black_knight[index])); break
+                    case 'b': total += (piece.color === 'w' ? bishop_value + white_bishop[index] : - (bishop_value + black_bishop[index])); break
+                    case 'r': total += (piece.color === 'w' ? rook_value + white_rook[index] : - (rook_value + black_rook[index])); break
+                    case 'q': total += (piece.color === 'w' ? queen_value + white_queen[index] : - (queen_value + black_queen[index])); break
+                    case 'k': total += (piece.color === 'w' ? king_value + white_king[index] : - (king_value + black_king[index])); break // CHANGE TO "w/b_king_endgame" table on endgame positions
                 }
-            })
-        });
-        return score;
+            }
+        }
+
+        return this.board.turn() === 'w' ? total : -total
     }
     minmaxab() {
         if (this.targetDepth === 0) {

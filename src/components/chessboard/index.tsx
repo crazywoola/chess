@@ -11,7 +11,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import Cell from './cell';
 import Preview from './preview';
 import { DragDropType } from 'src/constant';
-import { stupidVersion } from 'src/operations/ai';
+import ABNode from 'src/operations/alphabeta';
 
 const ChessBoard = () => {
     const { theme: { gridSize, borderColor } } = useContext(ThemeContext);
@@ -35,24 +35,18 @@ const ChessBoard = () => {
         // api play white
         if(ai.value && ai.turn === 'w' && turn === 'w') {
             // use AI
-            const fen = chessboard.fen();
-            const stupidMove = stupidVersion(fen);
-            console.log(stupidMove);
-            setTimeout(() => {
-                chessboard.move(stupidMove);
-                setTurn(chessboard.turn());
-            }, 1000);
+            const AI = new ABNode(3, chessboard, -Infinity, Infinity, true);
+            AI.minmaxab();
+            chessboard.move(AI.chosenMove);
+            setTurn(chessboard.turn());
         }
         // ai play black
         if(ai.value && ai.turn === 'b' && turn === 'b') {
             // use AI
-            const fen = chessboard.fen();
-            const stupidMove = stupidVersion(fen);
-            console.log(stupidMove);
-            setTimeout(() => {
-                chessboard.move(stupidMove);
-                setTurn(chessboard.turn());
-            }, 1000);
+            const AI = new ABNode(3, chessboard, -Infinity, Infinity, true);
+            AI.minmaxab();
+            chessboard.move(AI.chosenMove);
+            setTurn(chessboard.turn());
         }
     }, [turn, chessboard, setTurn, ai]);
     return <DndProvider backend={HTML5Backend}>
