@@ -1,13 +1,10 @@
 
 import MinmaxNode from './minmax';
-import { Chess } from 'chess.js';
-import { bishopEvalBlack, bishopEvalWhite, evalQueen, kingEvalBlack, kingEvalWhite, knightEval, pawnEvalBlack, pawnEvalWhite, rookEvalBlack, rookEvalWhite } from './constant';
-
+import { PLAY_BLACK_SCORE, PLAY_WHITE_SCORE } from './constant';
 export default class ABPruningNode extends MinmaxNode {
     alpha: number;
     beta: number;
     chosenMove: string;
-    nodes: number;
     constructor(
         targetDepth: number,
         depth: number,
@@ -19,43 +16,6 @@ export default class ABPruningNode extends MinmaxNode {
         this.alpha = alpha || -Infinity;
         this.beta = beta || Infinity;
         this.chosenMove = '';
-    }
-
-    getPieceValue(piece: any, x: number, y: number) {
-        if (piece === null) {
-            return 0;
-        }
-        const getAbsoluteValue = function (piece: any, isWhite: boolean, x: number, y: number) {
-            if (piece) {
-                if (piece.type === 'p') {
-                    return 10 + (isWhite ? pawnEvalWhite[y][x] : pawnEvalBlack[y][x]);
-                } else if (piece.type === 'r') {
-                    return 50 + (isWhite ? rookEvalWhite[y][x] : rookEvalBlack[y][x]);
-                } else if (piece.type === 'n') {
-                    return 30 + knightEval[y][x];
-                } else if (piece.type === 'b') {
-                    return 30 + (isWhite ? bishopEvalWhite[y][x] : bishopEvalBlack[y][x]);
-                } else if (piece.type === 'q') {
-                    return 90 + evalQueen[y][x];
-                } else if (piece.type === 'k') {
-                    return 900 + (isWhite ? kingEvalWhite[y][x] : kingEvalBlack[y][x]);
-                }
-            }
-        };
-
-        const absoluteValue = getAbsoluteValue(piece, piece.color === 'w', x, y);
-        return piece.color === 'w' ? absoluteValue : -absoluteValue;
-    };
-
-    evaluate(fen: string) {
-        const chessboard = new Chess(fen);
-        let score = 0;
-        for (var i = 0; i < 8; i++) {
-            for (var j = 0; j < 8; j++) {
-                score = score + this.getPieceValue(chessboard.board()[i][j], i, j);
-            }
-        }
-        return score;
     }
 
 
@@ -95,6 +55,80 @@ export default class ABPruningNode extends MinmaxNode {
                 }
             }
             return this.beta;
+        }
+    }
+}
+export class ABNode {
+    targetDepth: number;
+    board: any;
+    alpha: number;
+    beta: number;
+    isMax: boolean;
+
+    chosenMove: string;
+    constructor(
+        targetDepth: number,
+        board: any,
+        alpha: number,
+        beta: number,
+        isMax: boolean,
+    ) {
+        this.targetDepth = targetDepth
+        this.alpha = alpha || -Infinity;
+        this.beta = beta || Infinity;
+        this.isMax = isMax;
+        this.board = board;
+        this.chosenMove = '';
+    }
+    evaluate() {
+
+        let score = 0;
+        this.board.board().forEach((row: any[]) => {
+            row.forEach((piece: any) => {
+                if (piece) {
+                    if (piece.color === 'w') {
+                        score += PLAY_WHITE_SCORE[piece.type.toUpperCase()];
+                    } else {
+                        score += PLAY_BLACK_SCORE[piece.type];
+                    }
+                }
+            })
+        });
+        return score;
+    }
+    minimaxab() {
+        if (this.targetDepth === 0) {
+            return this.evaluate();
+        }
+        if (this.isMax) {
+            this.board.moves().forEach(move => {
+                this.board.move(move);
+                const child = new ABNode(this.targetDepth - 1, this.board, this.alpha, this.beta, !this.isMax);
+                const value = Math.max(this.alpha, child.minimaxab());
+                this.board.undo();
+                this.alpha = Math.max(this.alpha, value)
+                if (this.beta <= this.alpha) {
+                    
+                    return this.alpha
+                }
+                this.chosenMove = move;
+                return this.alpha
+            });
+
+        } else {
+            this.board.moves().forEach(move => {
+                this.board.move(move);
+                const child = new ABNode(this.targetDepth - 1, this.board, this.alpha, this.beta, this.isMax);
+                const value = Math.min(this.beta, child.minimaxab());
+                this.board.undo();
+                this.beta = Math.min(this.beta, value)
+                if (this.beta <= this.alpha) {
+                    return this.beta
+                }
+                this.chosenMove = move;
+                return this.beta
+            });
+
         }
     }
 }
