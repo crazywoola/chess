@@ -35,7 +35,7 @@ const ChessBoard = () => {
         // api play white
         if(ai.value && ai.turn === 'w' && turn === 'w') {
             // use AI
-            const AI = new ABNode(2, chessboard, -Infinity, Infinity, true);
+            const AI = new ABNode(3, chessboard, -Infinity, Infinity, true);
             AI.minmaxab();
             chessboard.move(AI.chosenMove);
             setTurn(chessboard.turn());
@@ -43,7 +43,7 @@ const ChessBoard = () => {
         // ai play black
         if(ai.value && ai.turn === 'b' && turn === 'b') {
             // use AI
-            const AI = new ABNode(2, chessboard, -Infinity, Infinity, true);
+            const AI = new ABNode(3, chessboard, -Infinity, Infinity, true);
             AI.minmaxab();
             chessboard.move(AI.chosenMove);
             setTurn(chessboard.turn());
