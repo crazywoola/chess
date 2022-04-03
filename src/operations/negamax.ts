@@ -43,16 +43,15 @@ export default class NegamaxNode {
         }
         shuffle(this.board.moves()).forEach(move => {
             this.board.move(move);
-            const child = new NegamaxNode(this.targetDepth - 1, this.board, this.beta, this.alpha, !this.isMax);
+            const child = new NegamaxNode(this.targetDepth - 1, this.board, -this.beta, -this.alpha, !this.isMax);
             const value = -child.negamax()
             this.board.undo();
-            this.alpha = Math.max(this.alpha, value)
-
-            if (this.beta <= this.alpha) {
-                return value
+            this.alpha = Math.max(this.alpha, value);
+            if(this.alpha >= this.beta) {
+                return;
             }
             this.chosenMove = move;
-            return value
         })
+        return this.alpha
     }
 }

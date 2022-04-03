@@ -10,12 +10,12 @@ import {
 //     node.minmax();
 // })
 
-test('minmax with pruning', () => {
-    const board = new Chess('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1');
-    const node = new ABNode(4, board, -Infinity, Infinity, true);
-    node.minmaxab();
-    console.log(node.chosenMove);
-})
+// test('minmax with pruning', () => {
+//     const board = new Chess('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1');
+//     const node = new ABNode(4, board, -Infinity, Infinity, true);
+//     node.minmaxab();
+//     console.log(node.chosenMove);
+// })
 
 test('negamax with pruning', () => {
     const board = new Chess('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1');
