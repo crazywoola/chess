@@ -19,6 +19,8 @@ test('node evaluate boards with pruning', () => {
 });
 
 test('minmax with pruning', () => {
-    const node = new NodeWithPruning(3, 0, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1', 'max');
+    const node = new NodeWithPruning(5, 0, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1', 'max');
+    // expect(node.chooseFen).toBe(null);
     node.minmaxab();
+    // console.log(node.getMove())
 })

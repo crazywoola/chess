@@ -119,7 +119,7 @@ export class NodeWithPruning extends Node {
             for (let i = 0; i < this.leafNodes().length; i++) {
                 const childFen = this.leafNodes()[i];
                 const child = new NodeWithPruning(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type), this.alpha, this.beta);
-                const value = child.minmax();
+                const value = child.minmaxab();
                 this.alpha = Math.max(this.alpha, value);
                 if (this.alpha >= this.beta) {
                     break;
@@ -134,7 +134,7 @@ export class NodeWithPruning extends Node {
             for (let i = 0; i < this.leafNodes().length; i++) {
                 const childFen = this.leafNodes()[i];
                 const child = new NodeWithPruning(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type), this.alpha, this.beta);
-                const value = child.minmax();
+                const value = child.minmaxab();
                 this.beta = Math.min(this.beta, value);
                 if (this.alpha >= this.beta) {
                     break;
