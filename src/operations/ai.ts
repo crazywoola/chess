@@ -24,13 +24,13 @@ export class Node {
 
     leafNodes() {
         const board = new Chess(this.fen);
-        const moves = board.moves();
-        return moves.map((move: string) => {
+        const nodes = board.moves().map((move: string) => {
             const newBoard = new Chess(this.fen);
             newBoard.move(move);
             const newFen = newBoard.fen();
-            return newFen;
+            return [newFen, move];
         })
+        return shuffle(nodes);
     }
 
     evaluate(fen: string) {
@@ -49,7 +49,7 @@ export class Node {
         });
         return score;
     }
-    switchType = (type: string) =>{
+    switchType = (type: string) => {
         if (type === 'min') {
             return 'max';
         }
@@ -65,12 +65,10 @@ export class Node {
             // max node edit alpha
             let max = -Infinity;
             for (let i = 0; i < this.leafNodes().length; i++) {
-                const childFen = this.leafNodes()[i];
+                const [childFen] = this.leafNodes()[i];
                 const child = new Node(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type));
                 const value = child.minmax();
-                if (value > max) {
-                    max = value;
-                }
+                max = Math.max(value, max);
             }
             return max;
         }
@@ -78,70 +76,87 @@ export class Node {
             // min node edit beta
             let min = Infinity;
             for (let i = 0; i < this.leafNodes().length; i++) {
-                const childFen = this.leafNodes()[i];
+                const [childFen] = this.leafNodes()[i];
                 const child = new Node(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type));
                 const value = child.minmax();
-                if (value < min) {
-                    min = value;
-                }
+                min = Math.min(value, min);
             }
             return min;
         }
     }
 
 }
-
-
 export class NodeWithPruning extends Node {
     alpha: number;
     beta: number;
-
+    chosenMove: string;
+    nodes: number;
     constructor(
-        targetDepth: number, 
-        depth: number, 
-        fen: string, 
-        type: string, 
-        alpha: number, 
+        targetDepth: number,
+        depth: number,
+        fen: string,
+        type: string,
+        alpha: number,
         beta: number) {
         super(targetDepth, depth, fen, type);
         this.alpha = alpha || -Infinity;
         this.beta = beta || Infinity;
+        this.chosenMove = '';
     }
 
-    minmaxab() {
+    evaluate(fen: string) {
+        const chessboard = new Chess(fen);
+        let score = 0;
+        chessboard.board().forEach((row: any[]) => {
+            row.forEach((piece: any) => {
+                if (piece) {
+                    if (piece.color === 'w') {
+                        score += PLAY_WHITE_SCORE[piece.type.toUpperCase()];
+                    } else {
+                        score += PLAY_BLACK_SCORE[piece.type];
+                    }
+                }
+            })
+        });
+        return score;
+    }
+
+    mmab() {
         if (this.depth >= this.targetDepth) {
             return this.evaluate(this.fen);
         }
         if (this.type === 'max') {
             // max node edit alpha
-            let max = -Infinity;
-
             for (let i = 0; i < this.leafNodes().length; i++) {
-                const childFen = this.leafNodes()[i];
+                const [childFen, move] = this.leafNodes()[i];
                 const child = new NodeWithPruning(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type), this.alpha, this.beta);
-                const value = child.minmaxab();
-                this.alpha = Math.max(this.alpha, value);
+                const childValue = child.mmab();
+                if (childValue > this.alpha) {
+                    this.chosenMove = move;
+                    this.alpha = childValue;
+                }
+                // this.alpha = Math.max(this.alpha, value);
                 if (this.alpha >= this.beta) {
                     break;
                 }
             }
-            return max;
-        }
-        if (this.type === 'min') {
+            return this.alpha;
+        } else {
             // min node edit beta
-            let min = Infinity;
-
             for (let i = 0; i < this.leafNodes().length; i++) {
-                const childFen = this.leafNodes()[i];
+                const [childFen, move] = this.leafNodes()[i];
                 const child = new NodeWithPruning(this.targetDepth, this.depth + 1, childFen, this.switchType(this.type), this.alpha, this.beta);
-                const value = child.minmaxab();
-                this.beta = Math.min(this.beta, value);
+                const childValue = child.mmab();
+                if (childValue < this.beta) {
+                    this.chosenMove = move;
+                    this.beta = childValue;
+                }
+                // this.beta = Math.min(this.beta, value);
                 if (this.alpha >= this.beta) {
                     break;
                 }
             }
-            return min;
+            return this.beta;
         }
     }
-
 }
