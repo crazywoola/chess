@@ -36,7 +36,7 @@ const ChessBoard = () => {
         if(ai.value && ai.turn === 'w' && turn === 'w') {
             // use AI
             const AI = new Negamax(3, chessboard, -Infinity, Infinity);
-            AI.minmaxab();
+            AI.negamax();
             chessboard.move(AI.chosenMove);
             setTurn(chessboard.turn());
         }
@@ -44,7 +44,7 @@ const ChessBoard = () => {
         if(ai.value && ai.turn === 'b' && turn === 'b') {
             // use AI
             const AI = new Negamax(3, chessboard, -Infinity, Infinity);
-            AI.minmaxab();
+            AI.negamax();
             chessboard.move(AI.chosenMove);
             setTurn(chessboard.turn());
         }
