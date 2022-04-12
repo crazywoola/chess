@@ -37,6 +37,7 @@ function App() {
                                     </a>
                                 </h3>
                                 <p className="article-meta">Written by <a href="https://juejin.cn/user/3051900006329550" target={'_blank'} rel="noreferrer">尖沙咀最强布拿拿</a></p>
+                                <p className="text-lead">如何使用 React 写一个国际象棋的游戏？</p>
                                 <ul>
                                     <li><a href="https://juejin.cn/post/7080522430413799460" target={'_blank'} rel="noreferrer">第一部分</a></li>
                                     <li><a href="https://juejin.cn/post/7080767359895633934" target={'_blank'} rel="noreferrer">第二部分</a></li>
