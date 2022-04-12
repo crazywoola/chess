@@ -50,8 +50,8 @@ const ActionSelect = () => {
         <h5>AI Play {ai.turn === 'w' ? 'White' : 'Black'}</h5>
         <div className="row">
             <button className='btn-small ' onClick={aiFns.playWhite}>AI Play White</button>
-            <button className='btn-small ' onClick={aiFns.playBlack}>AI Play Black</button>
-            <button className='btn-small ' onClick={aiFns.human}>Human</button>
+            <button className='btn-small gap' onClick={aiFns.playBlack}>AI Play Black</button>
+            <button className='btn-small gap' onClick={aiFns.human}>Human</button>
         </div>
         {/* <h4>Level: {isAI.level}</h4>
         <div className="row">
@@ -68,12 +68,8 @@ const ActionSelect = () => {
             <button className='btn-small' onClick={() => {
                 resetChessboard();
             }}>Reset Game</button>
+            <button className='btn-small gap' onClick={() => { setShow(true) }}>Load FEN</button>
         </div>
-        <div className="row">
-            <button className='btn-small' onClick={() => { setShow(true) }}>Load FEN</button>
-        </div>
-
-
     </div>
 };
 
